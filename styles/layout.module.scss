@@ -1,4 +1,17 @@
+.header {
+    display: flex;
+    place-items: center;
+    justify-content: space-between;
+    margin: auto;
+    height: clamp(5rem, 10vw, 7.5rem);
+    width: 96vw;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    z-index: 3;
+}
+
 .logo {
+    cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     font-size: 3rem;
@@ -9,18 +22,18 @@
     padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
 .main {
-    padding: 5rem 0;
+    padding: 2rem 0;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .footer {

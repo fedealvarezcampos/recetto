@@ -11,7 +11,7 @@ function Layout({ children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className={styles.container}>
-                <header>
+                <header className={styles.header}>
                     <div className={styles.logo}>Recippo</div>
                     <button>login</button>
                 </header>

@@ -1,0 +1,70 @@
+@mixin inputGeneralStyles {
+    padding: 0.5rem 0.55rem;
+    font-size: 1rem;
+    font-family: 'Noto Sans', sans-serif;
+    color: var(--white);
+    background-color: var(--main-item);
+    border: none;
+    border-radius: 4px;
+    margin-top: 0.2rem;
+}
+
+.addButton {
+    height: 2rem;
+    width: 2rem;
+    margin-bottom: 0.2rem;
+    font-size: 1.2rem;
+    align-self: flex-end;
+}
+
+.recipeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 25rem;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 6px solid var(--main-item);
+    background-color: var(--new-york);
+
+    button {
+        margin-top: 0.8rem;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--main-item);
+        width: fit-content;
+
+        span:first-child {
+            padding-left: 0.1rem;
+        }
+    }
+
+    input {
+        width: 12rem;
+        @include inputGeneralStyles();
+    }
+}
+
+.ingredientsFormSubContainer {
+    display: flex;
+    gap: 0.5rem;
+
+    textarea {
+        width: 15rem;
+        height: 8rem;
+        resize: none;
+        @include inputGeneralStyles();
+    }
+}
+
+.inputArrayContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}

@@ -13,7 +13,9 @@ function Layout({ children }) {
             <div className={styles.container}>
                 <header className={styles.header}>
                     <div className={styles.logo}>Recippo</div>
-                    <button>login</button>
+                    <button>
+                        <span>login</span>
+                    </button>
                 </header>
                 <main className={styles.main}>{children}</main>
                 <footer className={styles.footer}>

@@ -1,6 +1,7 @@
+@import './mixins';
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 
 :root {
@@ -34,20 +35,10 @@ a {
 }
 
 button {
-    border: none;
-    color: var(--white);
-    font-size: 1.6rem;
-    font-family: 'Poppins', sans-serif;
-    height: 3.4rem;
-    width: 7rem;
-    background-color: var(--main-item);
-    border-radius: 4px;
-    transition: background-color 150ms;
+    @include buttonGeneralStyles();
 
-    &:hover {
-        cursor: pointer;
-        background-color: var(--alt-item);
-        transition: background-color 200ms;
+    span {
+        padding-right: 0.06rem;
     }
 }
 
@@ -55,4 +46,9 @@ button {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--white);
     opacity: 0.6; /* Firefox */
+}
+
+[type='file'] {
+    display: none;
+    visibility: hidden;
 }

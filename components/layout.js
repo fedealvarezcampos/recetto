@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Header from './Header';
+import Login from './Login';
 import styles from '../styles/layout.module.scss';
 
-function Layout({ children }) {
+function Layout({ children, modal, setModal }) {
     return (
         <>
             <Head>
@@ -11,12 +13,8 @@ function Layout({ children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className={styles.container}>
-                <header className={styles.header}>
-                    <div className={styles.logo}>Recippo</div>
-                    <button>
-                        <span>login</span>
-                    </button>
-                </header>
+                <Header setModal={setModal} />
+                {modal && <Login setModal={setModal} />}
                 <main className={styles.main}>{children}</main>
                 <footer className={styles.footer}>
                     <a

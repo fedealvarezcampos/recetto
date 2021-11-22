@@ -1,43 +1,43 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
 
 function RecipeForm() {
+    const user = supabase?.auth.user();
+
+    console.log(user);
+
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [servings, setServings] = useState('');
+    const [cookTime, setCookTime] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [ingInputCounter, setIngInputCounter] = useState(1);
     const [instructions, setInstructions] = useState(['']);
     const [instInputCounter, setInstInputCounter] = useState(1);
     const [images, setImages] = useState([]);
 
-    // console.log(ingredients);
-    // console.log(instructions);
+    console.log(ingredients);
 
-    console.log(images);
-
-    const handleAddIngredientField = e => {
+    const handleNewInput = (e, field) => {
         e.preventDefault();
-        setIngInputCounter(ingInputCounter + 1);
+        field === 'ingredient'
+            ? setIngInputCounter(ingInputCounter + 1)
+            : setInstInputCounter(instInputCounter + 1);
     };
 
-    const handleAddInstructionField = e => {
-        e.preventDefault();
-        setInstInputCounter(instInputCounter + 1);
-    };
-
-    const updateIngredient = (i, e) => {
-        const newArr = [...ingredients];
-        newArr[i] = e.target.value;
-        setIngredients(newArr);
-    };
-
-    const updateIstruction = (i, e) => {
-        const newArr = [...instructions];
-        newArr[i] = e.target.value;
-        setInstructions(newArr);
+    const updateFieldContent = (i, e, field) => {
+        if (field === 'ingredient') {
+            const newArr = [...ingredients];
+            newArr[i] = e.target.value;
+            setIngredients(newArr);
+        } else {
+            const newArr = [...instructions];
+            newArr[i] = e.target.value;
+            setInstructions(newArr);
+        }
     };
 
     async function setPreviews(e) {
@@ -65,16 +65,16 @@ function RecipeForm() {
                     return;
                 }
 
-                if (images?.length >= 5) {
-                    console.log('Five images max!');
-                    return;
-                }
-
                 const fileName = `${uuidv4()}.${fileExt}`;
 
                 const url = URL.createObjectURL(file);
 
                 previewsArray.push({ preview: url, file: file, filePath: fileName });
+            }
+
+            if (images?.length + files?.length > 5) {
+                console.log('Five images max!');
+                return;
             }
 
             setImages([...images, ...previewsArray]);
@@ -83,9 +83,55 @@ function RecipeForm() {
         }
     }
 
+    const removeImgPreview = key => {
+        const filtered = images.filter((i, value) => i.preview !== key);
+
+        setImages(filtered);
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        try {
+            let imgURL = [];
+
+            for (const image of images) {
+                const fileName = image.filePath;
+                const file = image.file;
+
+                let { error: uploadError } = await supabase.storage.from('images').upload(fileName, file);
+
+                if (uploadError) {
+                    throw uploadError;
+                }
+
+                imgURL.push(fileName);
+            }
+
+            const { data, error } = await supabase
+                .from('recipes')
+                .insert({
+                    name: title,
+                    images: imgURL,
+                    category: category,
+                    servings: servings,
+                    cooktime: cookTime,
+                    ingredients: ingredients,
+                    steps: instructions,
+                    owner_id: user?.id,
+                });
+
+            if (error) throw error;
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
-            <form className={styles.recipeForm}>
+            <form action="" onSubmit={e => handleSubmit(e)} className={styles.recipeForm}>
                 <h1>Add a recipe</h1>
                 <label htmlFor="title">
                     <span>Title</span>
@@ -122,6 +168,7 @@ function RecipeForm() {
                                 alt="image in board"
                                 quality={70}
                                 objectFit="cover"
+                                onClick={() => removeImgPreview(image?.preview)}
                             />
                         ))}
                     </div>
@@ -142,10 +189,23 @@ function RecipeForm() {
                     <input
                         name="servings"
                         id="servings"
-                        type="text"
+                        type="number"
+                        min="1"
                         placeholder="Recipe servings"
                         value={servings}
                         onChange={e => setServings(e.target.value)}
+                    />
+                </label>
+                <label htmlFor="cookTime">
+                    <span>Cooking time (minutes)</span>
+                    <input
+                        name="cookTime"
+                        id="cookTime"
+                        type="number"
+                        min="1"
+                        placeholder="Recipe cooking time"
+                        value={cookTime}
+                        onChange={e => setCookTime(e.target.value)}
                     />
                 </label>
                 <div className={styles.ingredientsFormSubContainer}>
@@ -161,13 +221,13 @@ function RecipeForm() {
                                         id="ingredients"
                                         type="text"
                                         placeholder="Add ingredient"
-                                        onChange={e => updateIngredient(i, e)}
+                                        onChange={e => updateFieldContent(i, e, 'ingredient')}
                                     />
                                 );
                             })}
                         </span>
                     </label>
-                    <button className={styles.addButton} onClick={e => handleAddIngredientField(e)}>
+                    <button className={styles.addButton} onClick={e => handleNewInput(e, 'ingredient')}>
                         +
                     </button>
                 </div>
@@ -184,13 +244,13 @@ function RecipeForm() {
                                         id="instructions"
                                         type="textarea"
                                         placeholder="Add step"
-                                        onChange={e => updateIstruction(i, e)}
+                                        onChange={e => updateFieldContent(i, e, 'instruction')}
                                     />
                                 );
                             })}
                         </span>
                     </label>
-                    <button className={styles.addButton} onClick={e => handleAddInstructionField(e)}>
+                    <button className={styles.addButton} onClick={e => handleNewInput(e, 'instruction')}>
                         +
                     </button>
                 </div>

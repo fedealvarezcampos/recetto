@@ -88,11 +88,15 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    // width: 6rem;
-    // height: 6rem;
+
     span {
         position: relative !important;
         width: 5rem !important;
         height: 5rem !important;
+
+        &:hover {
+            cursor: pointer;
+            filter: opacity(80%) grayscale(40%) hue-rotate(250deg);
+        }
     }
 }

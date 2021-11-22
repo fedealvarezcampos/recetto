@@ -41,7 +41,7 @@
 .inputsContainer {
     display: inline-flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.5rem;
     width: clamp(20rem, 50vw, 28rem);
     height: fit-content;
     padding: 1.6rem 2rem 2.1rem 2rem;
@@ -51,11 +51,14 @@
 
     input {
         @include inputGeneralStyles();
+        border: 5px solid var(--new-york);
     }
 
     button {
         &:hover {
-            background-color: var(--bluer);
+            color: var(--main-item);
+            background-color: var(--new-york);
+            transition: all 250ms;
         }
 
         &:last-child {
@@ -73,6 +76,15 @@
         > span:first-child {
             font-family: 'Poppins', sans-serif;
             font-size: 1.4rem;
+        }
+
+        > span:nth-child(2) {
+            cursor: pointer;
+            text-decoration: underline 2px var(--white);
+            padding-bottom: 0.5rem;
+            font-style: italic;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
         }
     }
 

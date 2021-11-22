@@ -1,4 +1,6 @@
 @mixin buttonGeneralStyles {
+    display: grid;
+    place-content: center;
     border: none;
     color: var(--white);
     font-size: 1.6rem;

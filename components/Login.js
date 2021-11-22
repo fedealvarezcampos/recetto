@@ -6,29 +6,29 @@ import styles from '../styles/Login.module.scss';
 
 function Login({ setModal }) {
     // const [loading, setLoading] = useState(false);
+    const [registerState, setRegisterState] = useState(false);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
 
-    // const handleLogin = async (email) => {
-    //     try {
-    //         setLoading(true);
-    //         const { error } = await supabase.auth.signIn({ email });
+    const handleLogin = async e => {
+        e.preventDefault();
+        try {
+            // setLoading(true);
+            const { error } = await supabase.auth.signIn({ email: email, password: password });
 
-    //         if (error) throw error;
+            if (error) throw error;
 
-    //         notifyMessage('Check your email for the login link!');
-    //         setModal(false);
-    //     } catch (error) {
-    //         notifyError(error.error_description || error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
+            setModal(false);
+        } catch (error) {
+            console.log(error.error_description || error.message);
+        }
+    };
 
     const handleSignUp = async e => {
+        e.preventDefault();
         try {
-            e.preventDefault();
             if (password !== confirmedPassword) {
                 console.log("Passwords don't match!");
                 return;
@@ -38,25 +38,27 @@ function Login({ setModal }) {
                 email: email,
                 password: password,
             });
+
+            if (error) throw error;
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handleProviderLogin = async (e, provider) => {
-        e.preventDefault();
-        try {
-            const { error } = await supabase.auth.signIn({
-                provider: provider,
-            });
+    // const handleProviderLogin = async (e, provider) => {
+    //     e.preventDefault();
+    //     try {
+    //         const { error } = await supabase.auth.signIn({
+    //             provider: provider,
+    //         });
 
-            if (error) throw error;
-        } catch (error) {
-            notifyError(error.error_description || error.message);
-        } finally {
-            setModal(false);
-        }
-    };
+    //         if (error) throw error;
+    //     } catch (error) {
+    //         notifyError(error.error_description || error.message);
+    //     } finally {
+    //         setModal(false);
+    //     }
+    // };
 
     // useClosingKey('Escape', undefined, setModal);
 
@@ -74,40 +76,70 @@ function Login({ setModal }) {
                 <div className={styles.loginContainer}>
                     <div className={styles.inputsContainer}>
                         <span>Sign in:</span>
-                        <form onSubmit={e => handleSignUp(e)}>
-                            <span>Register with your email</span>
-                            <label>
-                                <span>Email</span>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder="Your email"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                />
-                            </label>
-                            <label>
-                                <span>Password</span>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Your pass"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-                            </label>
-                            <label>
-                                <span>Confirm password</span>
-                                <input
-                                    name="confirmedpass"
-                                    type="confirmedpass"
-                                    placeholder="Confirm password"
-                                    value={confirmedPassword}
-                                    onChange={e => setConfirmedPassword(e.target.value)}
-                                />
-                            </label>
-                            <button>sign up</button>
-                        </form>
+                        {registerState ? (
+                            <form onSubmit={e => handleSignUp(e)}>
+                                <span>Register with your email</span>
+                                <label>
+                                    <span>Email</span>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="Your email"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                </label>
+                                <label>
+                                    <span>Password</span>
+                                    <input
+                                        name="password"
+                                        type="password"
+                                        placeholder="Your pass"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </label>
+                                <label>
+                                    <span>Confirm password</span>
+                                    <input
+                                        name="confirmedpass"
+                                        type="confirmedpass"
+                                        placeholder="Confirm password"
+                                        value={confirmedPassword}
+                                        onChange={e => setConfirmedPassword(e.target.value)}
+                                    />
+                                </label>
+                                <button>sign up</button>
+                            </form>
+                        ) : (
+                            <form onSubmit={e => handleLogin(e)}>
+                                <span>Login with your email</span>
+                                <span onClick={() => setRegisterState(true)}>
+                                    ...or register if you haven't
+                                </span>
+                                <label>
+                                    <span>Email</span>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="Your email"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                </label>
+                                <label>
+                                    <span>Password</span>
+                                    <input
+                                        name="password"
+                                        type="password"
+                                        placeholder="Your pass"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </label>
+                                <button>sign up</button>
+                            </form>
+                        )}
                         {/* <div>
                             <span>With Twitter</span>
                             <br />

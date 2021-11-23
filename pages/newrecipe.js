@@ -1,6 +1,16 @@
-// import styles from '../styles/Home.module.css';
+import { useSession } from '../context/SessionContext';
+import { useRouter } from 'next/dist/client/router';
 import RecipeForm from '../components/RecipeForm';
+import { useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
-export default function Home() {
-    return <RecipeForm />;
+export default function NewRecipe() {
+    const session = useSession();
+
+    return (
+        <>
+            {session && <RecipeForm />}
+            {!session && <div>Loading...</div>}
+        </>
+    );
 }

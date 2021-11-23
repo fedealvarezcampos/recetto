@@ -1,9 +1,14 @@
 import { supabase } from '../lib/supabaseClient';
 import Link from 'next/link';
 import styles from '../styles/Header.module.scss';
+import { useEffect, useState } from 'react';
+import { useSession } from '../context/SessionContext';
 
 function Header({ setModal }) {
-    const user = supabase?.auth.user();
+    const session = useSession();
+    const user = session?.user;
+
+    // console.log(user);
 
     return (
         <header className={styles.header}>

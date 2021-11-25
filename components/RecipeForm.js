@@ -108,18 +108,16 @@ function RecipeForm() {
                 imgURL.push(fileName);
             }
 
-            const { data, error } = await supabase
-                .from('recipes')
-                .insert({
-                    name: title,
-                    images: imgURL,
-                    category: category,
-                    servings: servings,
-                    cooktime: cookTime,
-                    ingredients: ingredients,
-                    steps: instructions,
-                    owner_id: user?.id,
-                });
+            const { data, error } = await supabase.from('recipes').insert({
+                name: title,
+                images: imgURL,
+                category: category,
+                servings: servings,
+                cooktime: cookTime,
+                ingredients: ingredients,
+                steps: instructions,
+                owner_id: user?.id,
+            });
 
             if (error) throw error;
 

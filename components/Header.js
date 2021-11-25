@@ -7,8 +7,7 @@ import { useSession } from '../context/SessionContext';
 function Header({ setModal }) {
     const session = useSession();
     const user = session?.user;
-
-    // console.log(user);
+    const [loading, setLoading] = useState(true);
 
     return (
         <header className={styles.header}>

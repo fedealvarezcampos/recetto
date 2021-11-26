@@ -10,6 +10,12 @@
     // z-index: 3;
 }
 
+.buttonsContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1.4rem;
+}
+
 .logo {
     cursor: pointer;
     font-family: 'Poppins', sans-serif;

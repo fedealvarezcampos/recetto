@@ -115,7 +115,7 @@ function Login({ setModal }) {
                             <form onSubmit={e => handleLogin(e)}>
                                 <span>Login with your email</span>
                                 <span onClick={() => setRegisterState(true)}>
-                                    ...or register if you haven't
+                                    ...or register if you haven&apos;t
                                 </span>
                                 <label>
                                     <span>Email</span>

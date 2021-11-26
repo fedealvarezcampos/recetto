@@ -42,6 +42,9 @@ const securityHeaders = [
 
 module.exports = {
     reactStrictMode: true,
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'styles')],
+    },
     images: {
         domains: ['cdn.chec.io'],
     },

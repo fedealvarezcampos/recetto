@@ -1,8 +1,8 @@
-@import './mixins';
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+@import './mixins';
 
 :root {
     --white: #f5f5f5;

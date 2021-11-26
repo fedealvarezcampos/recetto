@@ -1,4 +1,4 @@
-@import './_mixins.scss';
+@import './mixins';
 
 .recipeForm {
     display: flex;
@@ -13,6 +13,7 @@
     h1 {
         margin: 0;
         color: var(--main-item);
+        font-family: $poppins;
     }
 
     button {

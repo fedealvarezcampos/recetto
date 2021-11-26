@@ -1,10 +1,12 @@
+@import 'variables.scss';
+
 @mixin buttonGeneralStyles {
     display: grid;
     place-content: center;
     border: none;
     color: var(--white);
     font-size: 1.6rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: $poppins;
     height: 3.4rem;
     width: 7rem;
     background-color: var(--main-item);
@@ -21,7 +23,7 @@
 @mixin inputGeneralStyles {
     padding: 0.5rem 0.55rem;
     font-size: 1rem;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: $noto-sans;
     color: var(--white);
     background-color: var(--main-item);
     border: none;

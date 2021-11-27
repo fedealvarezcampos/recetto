@@ -1,0 +1,19 @@
+.galleryContainer {
+    padding: 0 0.5rem 1.4rem 0.5rem;
+}
+
+.imageContainer {
+    height: fit-content;
+}
+
+@media (max-width: 800px) {
+    .galleryContainer {
+        padding: 0 0.8rem 0 0.8rem;
+    }
+
+    .imageContainer {
+        /* width: 20rem; */
+        background-size: cover;
+        background-position: center center;
+    }
+}

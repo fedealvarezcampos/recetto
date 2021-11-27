@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import SessionContext from '../context/SessionContext';
 import Layout from '../components/layout';
+import '../styles/slick.css';
+import '../styles/slick-theme.css';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {

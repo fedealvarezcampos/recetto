@@ -2,12 +2,16 @@ import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
 import { useSession } from '../../context/SessionContext';
 import { supabase } from '../../lib/supabaseClient';
+import Head from 'next/head';
+import RecipeGallery from '../../components/RecipeGallery';
 import styles from '../../styles/Recipe.module.scss';
 
 function Recipe() {
     const router = useRouter();
     const recipeId = router?.query.id;
-    const recipeName = router?.query.recipe;
+    const recipeQ = router?.query.recipe;
+    console.log(recipeQ);
+    const recipeName = recipeQ?.replaceAll('-', ' ');
 
     const session = useSession();
     const userId = session?.user?.id;
@@ -36,18 +40,29 @@ function Recipe() {
         recipeId && recipeName && userId && getRecipe();
     }, [recipeId, recipeName, userId]);
 
-    console.log(recipe);
-
     return (
         <>
+            <Head>
+                <title>Recetto | {recipeName}</title>
+            </Head>
             {loading ? (
                 <div>Loading...</div>
             ) : (
                 <div className={styles.mainContainer}>
                     <h1>{recipe?.name}</h1>
-                    <div>Cooking time: {recipe?.cooktime}</div>
-                    <div>Servings: {recipe?.servings}</div>
-                    <div>Category: {recipe?.category}</div>
+                    {recipe?.images?.length > 0 && <RecipeGallery items={recipe?.images} />}
+                    <div>
+                        <span className={styles.sideTitle}>Cooking time: </span>
+                        {recipe?.cooktime}
+                    </div>
+                    <div>
+                        <span className={styles.sideTitle}>Servings: </span>
+                        {recipe?.servings}
+                    </div>
+                    <div>
+                        <span className={styles.sideTitle}>Category: </span>
+                        {recipe?.category}
+                    </div>
                     <article className={styles.recipeContainer}>
                         <span>
                             <div>Instructions</div>

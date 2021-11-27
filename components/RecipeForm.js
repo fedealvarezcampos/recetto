@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
+import { useRouter } from 'next/dist/client/router';
 
 function RecipeForm() {
+    const router = useRouter();
     const user = supabase?.auth.user();
-
-    console.log(user);
 
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
@@ -19,7 +19,7 @@ function RecipeForm() {
     const [instInputCounter, setInstInputCounter] = useState(1);
     const [images, setImages] = useState([]);
 
-    console.log(ingredients);
+    // console.log(ingredients);
 
     const handleNewInput = (e, field) => {
         e.preventDefault();
@@ -122,6 +122,10 @@ function RecipeForm() {
             if (error) throw error;
 
             console.log(data);
+
+            const urlTitle = data[0]?.name.replaceAll(' ', '-');
+
+            router.push(data[0]?.id + '/' + urlTitle);
         } catch (error) {
             console.log(error);
         }

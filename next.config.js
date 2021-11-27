@@ -1,10 +1,10 @@
 const ContentSecurityPolicy = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' *.vercel.app *.vercel.com *.chec.io *.stripe.com;
-    child-src *.youtube.com *.google.com *.stripe.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' *.supabase.in *.vercel.app *.vercel.com;
+    child-src *.google.com *.supabase.in;
     style-src 'self' 'unsafe-inline' *.googleapis.com;
-    img-src 'self' *.chec.io blob: data:;
-    media-src 'self' *.chec.io;
+    img-src 'self' *.supabase.in blob: data:;
+    media-src 'self';
     font-src 'self' *.gstatic.com;
     connect-src *;
 `;
@@ -43,7 +43,8 @@ const securityHeaders = [
 module.exports = {
     reactStrictMode: true,
     images: {
-        domains: ['cdn.chec.io'],
+        domains: ['kfbmibfvknusdwjqdxeh.supabase.in'],
+        formats: ['image/avif', 'image/webp'],
     },
 
     async headers() {

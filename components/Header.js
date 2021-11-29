@@ -41,6 +41,11 @@ function Header({ setModal }) {
                                     <span className={styles.recipeButtonText}>add recipe</span>
                                 </button>
                             </Link>
+                            <Link href="/my-recipes" passHref>
+                                <button>
+                                    <span className={styles.recipeButtonText}>my recipes</span>
+                                </button>
+                            </Link>
                         </span>
                     </>
                 )}

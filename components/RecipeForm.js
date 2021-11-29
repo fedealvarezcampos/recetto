@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
@@ -93,6 +94,8 @@ function RecipeForm() {
         e.preventDefault();
 
         try {
+            toast.loading('Saving...');
+
             let imgURL = [];
 
             for (const image of images) {
@@ -111,7 +114,7 @@ function RecipeForm() {
             const { data, error } = await supabase.from('recipes').insert({
                 name: title,
                 images: imgURL,
-                category: category,
+                category: category || (category === '' && 'Uncategorized'),
                 servings: servings,
                 cooktime: cookTime,
                 ingredients: ingredients,
@@ -121,13 +124,14 @@ function RecipeForm() {
 
             if (error) throw error;
 
-            console.log(data);
-
             const urlTitle = data[0]?.name.replaceAll(' ', '-');
 
             router.push(data[0]?.id + '/' + urlTitle);
+
+            toast.dismiss();
+            toast.success('Recipe added!');
         } catch (error) {
-            console.log(error);
+            toast.error(error);
         }
     };
 

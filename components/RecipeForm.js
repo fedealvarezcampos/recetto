@@ -24,8 +24,6 @@ function RecipeForm({ setModal }) {
     const [instInputCounter, setInstInputCounter] = useState(1);
     const [images, setImages] = useState([]);
 
-    console.log(ingredients);
-
     const handleNewInput = (e, field) => {
         e.preventDefault();
         field === 'ingredient'
@@ -106,11 +104,12 @@ function RecipeForm({ setModal }) {
             body: JSON.stringify(body),
             headers: new Headers({
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
                 Accept: 'application/json',
             }),
         });
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         if (data?.items || data?.steps) {
             setIngredients(data?.items);

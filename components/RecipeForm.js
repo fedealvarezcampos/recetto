@@ -5,22 +5,26 @@ import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
 import { useRouter } from 'next/dist/client/router';
+import Modal from './Modal';
 
-function RecipeForm() {
+function RecipeForm({ setModal }) {
     const router = useRouter();
     const user = supabase?.auth.user();
 
+    const [importing, setImporting] = useState(false);
+
+    const [importURL, setImportURL] = useState('');
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [servings, setServings] = useState('');
     const [cookTime, setCookTime] = useState('');
-    const [ingredients, setIngredients] = useState([]);
+    const [ingredients, setIngredients] = useState(['']);
     const [ingInputCounter, setIngInputCounter] = useState(1);
     const [instructions, setInstructions] = useState(['']);
     const [instInputCounter, setInstInputCounter] = useState(1);
     const [images, setImages] = useState([]);
 
-    // console.log(ingredients);
+    console.log(ingredients);
 
     const handleNewInput = (e, field) => {
         e.preventDefault();
@@ -90,6 +94,36 @@ function RecipeForm() {
         setImages(filtered);
     };
 
+    const importer = async e => {
+        e.preventDefault();
+
+        setImporting(true);
+
+        const body = { url: importURL };
+
+        const response = await fetch('/api/scrapit', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+
+        if (data?.items || data?.steps) {
+            setIngredients(data?.items);
+            setIngInputCounter(data?.items?.length);
+            setInstructions(data?.steps);
+            setInstInputCounter(data?.steps?.length);
+        } else {
+            toast.error(data?.message);
+        }
+
+        setImporting(false);
+    };
+
     const handleSubmit = async e => {
         e.preventDefault();
 
@@ -137,133 +171,162 @@ function RecipeForm() {
 
     return (
         <>
-            <form action="" onSubmit={e => handleSubmit(e)} className={styles.recipeForm}>
+            <div className={styles.formsContainer}>
                 <h1>Add a recipe</h1>
-                <label htmlFor="title">
-                    <span>Title</span>
-                    <input
-                        name="title"
-                        id="title"
-                        type="text"
-                        required
-                        placeholder="Recipe title"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                    />
-                </label>
-                <span className={styles.imageInputs}>
-                    <label htmlFor="file">
-                        <span>Add pictures</span>
+                <form action="" onSubmit={e => importer(e)} className={styles.recipeForm}>
+                    <label htmlFor="import">
+                        <span>
+                            Import a recipe (
+                            <span onClick={() => setModal(true)} className={styles.disclaimerText}>
+                                disclaimer
+                            </span>
+                            )
+                        </span>
                         <input
-                            type="file"
-                            name="file"
-                            multiple
-                            accept="image/jpeg, image/png, image/webp"
-                            id="file"
-                            onChange={setPreviews}
+                            name="import"
+                            id="import"
+                            type="url"
+                            placeholder="Import url"
+                            value={importURL}
+                            onChange={e => setImportURL(e.target.value)}
                         />
                     </label>
-                </span>
-                {images?.length !== 0 && (
-                    <div className={styles.imageContainer}>
-                        {images?.map((image, i) => (
-                            <Image
-                                key={i}
-                                src={image?.preview}
-                                layout="fill"
-                                alt="image in board"
-                                quality={70}
-                                objectFit="cover"
-                                onClick={() => removeImgPreview(image?.preview)}
+                    <span className={styles.importButtonContainer}>
+                        <button aria-label="import recipe" className={styles.importLabel}>
+                            <span>import</span>
+                        </button>
+                        {importing && <span className={styles.importingMsg}>Importing...</span>}
+                    </span>
+                </form>
+                <form action="" onSubmit={e => handleSubmit(e)} className={styles.recipeForm}>
+                    <label htmlFor="title">
+                        <span>Title</span>
+                        <input
+                            name="title"
+                            id="title"
+                            type="text"
+                            required
+                            placeholder="Recipe title"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                        />
+                    </label>
+                    <span className={styles.imageInputs}>
+                        <label htmlFor="file">
+                            <span>Add pictures</span>
+                            <input
+                                type="file"
+                                name="file"
+                                multiple
+                                accept="image/jpeg, image/png, image/webp"
+                                id="file"
+                                onChange={setPreviews}
                             />
-                        ))}
+                        </label>
+                    </span>
+                    {images?.length !== 0 && (
+                        <div className={styles.imageContainer}>
+                            {images?.map((image, i) => (
+                                <Image
+                                    key={i}
+                                    src={image?.preview}
+                                    layout="fill"
+                                    alt="image in board"
+                                    quality={70}
+                                    objectFit="cover"
+                                    onClick={() => removeImgPreview(image?.preview)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    <label htmlFor="category">
+                        <span>Category</span>
+                        <input
+                            name="category"
+                            id="category"
+                            type="text"
+                            placeholder="Recipe category"
+                            value={category}
+                            onChange={e => setCategory(e.target.value)}
+                        />
+                    </label>
+                    <label htmlFor="servings">
+                        <span>Servings</span>
+                        <input
+                            name="servings"
+                            id="servings"
+                            type="number"
+                            min="1"
+                            placeholder="Recipe servings"
+                            value={servings}
+                            onChange={e => setServings(e.target.value)}
+                        />
+                    </label>
+                    <label htmlFor="cookTime">
+                        <span>Cooking time (minutes)</span>
+                        <input
+                            name="cookTime"
+                            id="cookTime"
+                            type="number"
+                            min="1"
+                            placeholder="Recipe cooking time"
+                            value={cookTime}
+                            onChange={e => setCookTime(e.target.value)}
+                        />
+                    </label>
+                    <div className={styles.ingredientsFormSubContainer}>
+                        <label htmlFor="ingredients">
+                            <span>Ingredients</span>
+                            <span className={styles.inputArrayContainer}>
+                                {Array.from(Array(ingInputCounter)).map((el, i) => {
+                                    return (
+                                        <input
+                                            key={i}
+                                            required
+                                            name="ingredients"
+                                            id="ingredients"
+                                            type="text"
+                                            value={ingredients[i] || ''}
+                                            placeholder="Add ingredient"
+                                            onChange={e => updateFieldContent(i, e, 'ingredient')}
+                                        />
+                                    );
+                                })}
+                            </span>
+                        </label>
+                        <button className={styles.addButton} onClick={e => handleNewInput(e, 'ingredient')}>
+                            +
+                        </button>
                     </div>
-                )}
-                <label htmlFor="category">
-                    <span>Category</span>
-                    <input
-                        name="category"
-                        id="category"
-                        type="text"
-                        placeholder="Recipe category"
-                        value={category}
-                        onChange={e => setCategory(e.target.value)}
-                    />
-                </label>
-                <label htmlFor="servings">
-                    <span>Servings</span>
-                    <input
-                        name="servings"
-                        id="servings"
-                        type="number"
-                        min="1"
-                        placeholder="Recipe servings"
-                        value={servings}
-                        onChange={e => setServings(e.target.value)}
-                    />
-                </label>
-                <label htmlFor="cookTime">
-                    <span>Cooking time (minutes)</span>
-                    <input
-                        name="cookTime"
-                        id="cookTime"
-                        type="number"
-                        min="1"
-                        placeholder="Recipe cooking time"
-                        value={cookTime}
-                        onChange={e => setCookTime(e.target.value)}
-                    />
-                </label>
-                <div className={styles.ingredientsFormSubContainer}>
-                    <label htmlFor="ingredients">
-                        <span>Ingredients</span>
-                        <span className={styles.inputArrayContainer}>
-                            {Array.from(Array(ingInputCounter)).map((el, i) => {
-                                return (
-                                    <input
-                                        key={i}
-                                        required
-                                        name="ingredients"
-                                        id="ingredients"
-                                        type="text"
-                                        placeholder="Add ingredient"
-                                        onChange={e => updateFieldContent(i, e, 'ingredient')}
-                                    />
-                                );
-                            })}
-                        </span>
-                    </label>
-                    <button className={styles.addButton} onClick={e => handleNewInput(e, 'ingredient')}>
-                        +
+                    <div className={styles.ingredientsFormSubContainer}>
+                        <label htmlFor="instructions">
+                            <span>Instructions</span>
+                            <span className={styles.inputArrayContainer}>
+                                {Array.from(Array(instInputCounter)).map((el, i) => {
+                                    return (
+                                        <textarea
+                                            key={i}
+                                            required
+                                            name="instructions"
+                                            id="instructions"
+                                            type="textarea"
+                                            value={instructions[i]}
+                                            placeholder="Add step"
+                                            onChange={e => updateFieldContent(i, e, 'instruction')}
+                                        />
+                                    );
+                                })}
+                            </span>
+                        </label>
+                        <button className={styles.addButton} onClick={e => handleNewInput(e, 'instruction')}>
+                            +
+                        </button>
+                    </div>
+                    <button aria-label="save new recipe">
+                        <span>save</span>
                     </button>
-                </div>
-                <div className={styles.ingredientsFormSubContainer}>
-                    <label htmlFor="instructions">
-                        <span>Instructions</span>
-                        <span className={styles.inputArrayContainer}>
-                            {Array.from(Array(instInputCounter)).map((el, i) => {
-                                return (
-                                    <textarea
-                                        key={i}
-                                        required
-                                        name="instructions"
-                                        id="instructions"
-                                        type="textarea"
-                                        placeholder="Add step"
-                                        onChange={e => updateFieldContent(i, e, 'instruction')}
-                                    />
-                                );
-                            })}
-                        </span>
-                    </label>
-                    <button className={styles.addButton} onClick={e => handleNewInput(e, 'instruction')}>
-                        +
-                    </button>
-                </div>
-                <button aria-label="save new recipe">
-                    <span>save</span>
-                </button>
-            </form>
+                </form>
+            </div>
         </>
     );
 }

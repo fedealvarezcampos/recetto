@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <SessionContext>
             <Layout modal={modal} setModal={setModal}>
-                <Component {...pageProps} />
+                <Component modal={modal} setModal={setModal} {...pageProps} />
             </Layout>
         </SessionContext>
     );

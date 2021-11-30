@@ -1,3 +1,4 @@
+import { useSession } from '../context/SessionContext';
 import { Toaster } from 'react-hot-toast';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -6,6 +7,8 @@ import Login from './Login';
 import styles from '../styles/layout.module.scss';
 
 function Layout({ children, modal, setModal }) {
+    const session = useSession();
+
     return (
         <>
             <Head>
@@ -26,7 +29,7 @@ function Layout({ children, modal, setModal }) {
             />
             <div className={styles.container}>
                 <Header setModal={setModal} />
-                {modal && <Login setModal={setModal} />}
+                {modal && !session && <Login setModal={setModal} />}
                 <main className={styles.main}>{children}</main>
                 <footer className={styles.footer}>
                     <a

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
 // import { useClosingKey } from '../helpers/useClosingKey';
+import Modal from './Modal';
 import styles from '../styles/Login.module.scss';
 
 function Login({ setModal }) {
@@ -64,83 +65,74 @@ function Login({ setModal }) {
 
     return (
         <>
-            <motion.div
-                initial={{ y: -30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 50, opacity: 0 }}
-                transition={{
-                    duration: 0.3,
-                }}
-                className={styles.inputsOuterContainer}
-            >
-                <div className={styles.loginContainer}>
-                    <div className={styles.inputsContainer}>
-                        <span>Sign in:</span>
-                        {registerState ? (
-                            <form onSubmit={e => handleSignUp(e)}>
-                                <span>Register with your email</span>
-                                <label>
-                                    <span>Email</span>
-                                    <input
-                                        name="email"
-                                        type="email"
-                                        placeholder="Your email"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)}
-                                    />
-                                </label>
-                                <label>
-                                    <span>Password</span>
-                                    <input
-                                        name="password"
-                                        type="password"
-                                        placeholder="Your pass"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
-                                    />
-                                </label>
-                                <label>
-                                    <span>Confirm password</span>
-                                    <input
-                                        name="confirmedpass"
-                                        type="confirmedpass"
-                                        placeholder="Confirm password"
-                                        value={confirmedPassword}
-                                        onChange={e => setConfirmedPassword(e.target.value)}
-                                    />
-                                </label>
-                                <button>sign up</button>
-                            </form>
-                        ) : (
-                            <form onSubmit={e => handleLogin(e)}>
-                                <span>Login with your email</span>
-                                <span onClick={() => setRegisterState(true)}>
-                                    ...or register if you haven&apos;t
-                                </span>
-                                <label>
-                                    <span>Email</span>
-                                    <input
-                                        name="email"
-                                        type="email"
-                                        placeholder="Your email"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)}
-                                    />
-                                </label>
-                                <label>
-                                    <span>Password</span>
-                                    <input
-                                        name="password"
-                                        type="password"
-                                        placeholder="Your pass"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
-                                    />
-                                </label>
-                                <button>sign up</button>
-                            </form>
-                        )}
-                        {/* <div>
+            <Modal setModal={setModal}>
+                <div className={styles.inputsContainer}>
+                    <span>Sign in:</span>
+                    {registerState ? (
+                        <form onSubmit={e => handleSignUp(e)}>
+                            <span>Register with your email</span>
+                            <label>
+                                <span>Email</span>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    placeholder="Your email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </label>
+                            <label>
+                                <span>Password</span>
+                                <input
+                                    name="password"
+                                    type="password"
+                                    placeholder="Your pass"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </label>
+                            <label>
+                                <span>Confirm password</span>
+                                <input
+                                    name="confirmedpass"
+                                    type="confirmedpass"
+                                    placeholder="Confirm password"
+                                    value={confirmedPassword}
+                                    onChange={e => setConfirmedPassword(e.target.value)}
+                                />
+                            </label>
+                            <button>sign up</button>
+                        </form>
+                    ) : (
+                        <form onSubmit={e => handleLogin(e)}>
+                            <span>Login with your email</span>
+                            <span onClick={() => setRegisterState(true)}>
+                                ...or register if you haven&apos;t
+                            </span>
+                            <label>
+                                <span>Email</span>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    placeholder="Your email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </label>
+                            <label>
+                                <span>Password</span>
+                                <input
+                                    name="password"
+                                    type="password"
+                                    placeholder="Your pass"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </label>
+                            <button>sign up</button>
+                        </form>
+                    )}
+                    {/* <div>
                             <span>With Twitter</span>
                             <br />
                             <motion.button
@@ -155,17 +147,8 @@ function Login({ setModal }) {
                                 Twitter
                             </motion.button>
                         </div> */}
-                    </div>
                 </div>
-            </motion.div>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className={styles.modalBG}
-                onClick={() => setModal(false)}
-            />
+            </Modal>
         </>
     );
 }

@@ -51,7 +51,6 @@ module.exports = {
         return [
             {
                 source: '/(.*)',
-                // headers: securityHeaders,
             },
         ];
     },

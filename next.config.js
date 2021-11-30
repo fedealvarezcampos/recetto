@@ -46,12 +46,4 @@ module.exports = {
         domains: ['kfbmibfvknusdwjqdxeh.supabase.in'],
         formats: ['image/avif', 'image/webp'],
     },
-
-    async headers() {
-        return [
-            {
-                source: '/(.*)',
-            },
-        ];
-    },
 };

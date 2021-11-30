@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabaseClient';
 import { supabaseHost } from '../lib/constants';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../styles/my-recipes.module.scss';
 import toast from 'react-hot-toast';
 
@@ -69,7 +70,7 @@ function Recipe() {
                         name="category"
                         id="category-select"
                     >
-                        <option value="">-- Choose a category --</option>
+                        <option value="">-- All recipes --</option>
                         {categories?.map((item, i) => (
                             <option key={i} value={item}>
                                 {item}
@@ -78,23 +79,25 @@ function Recipe() {
                     </select>
                     <ul className={styles.recipeListContainer}>
                         {recipes?.map((item, i) => (
-                            <li className={styles.recipeListItem} key={i}>
-                                <div className={styles.recipeData}>
-                                    <span>{item.name}</span>
-                                    <span>{item.category || 'Uncategorized'}</span>
-                                </div>
-                                {item.images[0] && (
-                                    <Image
-                                        className={styles.imageContainer}
-                                        src={supabaseHost + item.images[0]}
-                                        width="100%"
-                                        height="100%"
-                                        objectFit="cover"
-                                        quality={80}
-                                        alt="recipe images"
-                                    />
-                                )}
-                            </li>
+                            <Link key={i} href={`/${item.id}/${item.name.replaceAll(' ', '-')}`} passHref>
+                                <li className={styles.recipeListItem}>
+                                    <div className={styles.recipeData}>
+                                        <span>{item.name}</span>
+                                        <span>{item.category || 'Uncategorized'}</span>
+                                    </div>
+                                    {item.images[0] && (
+                                        <Image
+                                            className={styles.imageContainer}
+                                            src={supabaseHost + item.images[0]}
+                                            width="100%"
+                                            height="100%"
+                                            objectFit="cover"
+                                            quality={80}
+                                            alt="recipe images"
+                                        />
+                                    )}
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>

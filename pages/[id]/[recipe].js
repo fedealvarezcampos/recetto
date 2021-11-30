@@ -46,7 +46,7 @@ function Recipe() {
                 <title>Recetto | {recipeName}</title>
             </Head>
             {loading ? (
-                <div>Loading...</div>
+                'Loading...'
             ) : (
                 <div className={styles.mainContainer}>
                     <h1>{recipe?.name}</h1>

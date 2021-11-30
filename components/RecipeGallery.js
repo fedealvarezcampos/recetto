@@ -78,7 +78,7 @@ function RecipeGallery({ items }) {
                         ))}
                     </Slider>
                 )}
-                {items?.length >= 1 && (
+                {items?.length <= 1 && (
                     <Image
                         src={supabaseHost + items[0]}
                         // placeholder="blur"

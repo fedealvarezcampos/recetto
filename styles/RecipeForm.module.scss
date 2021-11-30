@@ -1,20 +1,28 @@
 @import './mixins';
 
+.formsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    h1 {
+        margin: 0;
+        margin-bottom: -0.4rem;
+        padding-left: 0.4rem;
+        color: var(--main-item);
+        font-family: $poppins;
+    }
+}
+
 .recipeForm {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
     width: clamp(25rem, 60vw, 40rem);
-    padding: 2.4rem 2.4rem 2.8rem 2.4rem;
+    padding: 1.8rem 2.4rem 2.2rem 2.4rem;
     border-radius: 8px;
     border: 6px solid var(--main-item);
     background-color: var(--new-york);
-
-    h1 {
-        margin: 0;
-        color: var(--main-item);
-        font-family: $poppins;
-    }
 
     button {
         margin-top: 0.8rem;
@@ -50,6 +58,11 @@
     margin-bottom: 0.2rem;
     font-size: 1.2rem;
     align-self: flex-end;
+}
+
+.importLabel {
+    padding-left: 0.3rem;
+    font-size: 1.4rem;
 }
 
 .imageInputs {
@@ -99,5 +112,33 @@
             cursor: pointer;
             filter: opacity(80%) grayscale(40%) hue-rotate(250deg);
         }
+    }
+}
+
+.importButtonContainer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.6rem;
+
+    button {
+        margin: 0;
+    }
+}
+
+.importingMsg {
+    font-family: $poppins;
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.disclaimerText {
+    font-style: italic;
+    font-family: $noto-sans;
+    font-size: 1rem;
+    &:hover {
+        cursor: pointer;
+        color: var(--alt-item);
     }
 }

@@ -11,6 +11,8 @@ export default async function scraper(req, res) {
 
         const { url } = req?.body;
 
+        JSON.stringify(url);
+
         console.log(url);
 
         const browser = await chromium.launch();

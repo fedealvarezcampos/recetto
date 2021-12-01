@@ -11,8 +11,6 @@ export default async function scraper(req, res) {
 
         const { url } = req?.body;
 
-        JSON.stringify(url);
-
         console.log(url);
 
         const browser = await chromium.launch();
@@ -61,11 +59,7 @@ export default async function scraper(req, res) {
         // return ingredients;
 
         if (ingredients || instructions) {
-            const obj = { items: ingredients, steps: instructions };
-            const response = JSON.stringify(obj);
-            console.log(response);
-            res.status(200);
-            res.send(response);
+            res.status(200).json({ items: ingredients, steps: instructions });
         } else {
             res.status(200).json({ message: 'No data found!' });
         }

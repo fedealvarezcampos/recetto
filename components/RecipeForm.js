@@ -95,44 +95,50 @@ function RecipeForm({ setModal }) {
     const importer = async e => {
         e.preventDefault();
 
-        setImporting(true);
+        try {
+            setImporting(true);
 
-        const body = { url: importURL };
+            const body = { url: importURL };
 
-        // const response = await fetch('/api/scrapit', {
-        //     method: 'POST',
-        //     body: JSON.stringify(body),
-        //     headers: new Headers({
-        //         'Content-Type': 'application/json',
-        //         'Access-Control-Allow-Origin': '*',
-        //         Accept: 'application/json',
-        //     }),
-        // });
-        // const data = await response.json();
-        // console.log(data);
+            // const response = await fetch('/api/scrapit', {
+            //     method: 'POST',
+            //     body: JSON.stringify(body),
+            //     headers: new Headers({
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Origin': '*',
+            //         Accept: 'application/json',
+            //     }),
+            // });
+            // const data = await response.json();
+            // console.log(data);
 
-        const res = await axios.post(`/api/scrapit`, body, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                Accept: 'application/json',
-            },
-        });
+            const res = await axios.post(`/api/scrapit`, body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    Accept: 'application/json',
+                },
+            });
 
-        console.log(res);
+            console.log(res);
 
-        if (res.status !== 200) throw String(`Invalid server response: ${res.status} ${res.statusText}`);
+            if (res?.status !== 200) {
+                console.log(`Invalid server response: ${res.status} ${res.statusText}`);
+            }
 
-        if (res.data?.items || res.data?.steps) {
-            setIngredients(res.data?.items);
-            setIngInputCounter(res.data?.items?.length);
-            setInstructions(res.data?.steps);
-            setInstInputCounter(res.data?.steps?.length);
-        } else {
-            toast.error(data?.message);
+            if (res.data?.items || res.data?.steps) {
+                setIngredients(res.data?.items);
+                setIngInputCounter(res.data?.items?.length);
+                setInstructions(res.data?.steps);
+                setInstInputCounter(res.data?.steps?.length);
+            } else {
+                throw error;
+            }
+
+            setImporting(false);
+        } catch (error) {
+            toast.error("Site can't be imported!");
         }
-
-        setImporting(false);
     };
 
     const handleSubmit = async e => {

@@ -111,7 +111,7 @@ function RecipeForm({ setModal }) {
         // const data = await response.json();
         // console.log(data);
 
-        const { data } = await axios.post(`/api/scrapit`, body, {
+        const res = await axios.post(`/api/scrapit`, body, {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -119,11 +119,15 @@ function RecipeForm({ setModal }) {
             },
         });
 
-        if (data?.items || data?.steps) {
-            setIngredients(data?.items);
-            setIngInputCounter(data?.items?.length);
-            setInstructions(data?.steps);
-            setInstInputCounter(data?.steps?.length);
+        console.log(res);
+
+        if (res.status !== 200) throw String(`Invalid server response: ${res.status} ${res.statusText}`);
+
+        if (res.data?.items || res.data?.steps) {
+            setIngredients(res.data?.items);
+            setIngInputCounter(res.data?.items?.length);
+            setInstructions(res.data?.steps);
+            setInstInputCounter(res.data?.steps?.length);
         } else {
             toast.error(data?.message);
         }

@@ -1,5 +1,16 @@
-const { chromium } = require('playwright');
-const { compact } = require('jsonld');
+import { compact } from 'jsonld';
+import { chromium } from 'playwright-core';
+import initMiddleware from '../../lib/init-middleware';
+import Cors from 'cors';
+
+const cors = initMiddleware(
+    // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+    Cors({
+        // Only allow requests with GET, POST and OPTIONS
+        origin: '*',
+        methods: ['POST'],
+    })
+);
 
 export default async function scraper(req, res) {
     // console.log('url: ', url);
@@ -8,6 +19,8 @@ export default async function scraper(req, res) {
             res.status(405).send({ message: 'Only POST requests allowed' });
             return;
         }
+
+        await cors(req, res);
 
         const { url } = req?.body;
 

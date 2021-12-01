@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../lib/supabaseClient';
 import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
 import { useRouter } from 'next/dist/client/router';
-import Modal from './Modal';
 
 function RecipeForm({ setModal }) {
     const router = useRouter();
@@ -99,17 +99,25 @@ function RecipeForm({ setModal }) {
 
         const body = { url: importURL };
 
-        const response = await fetch('/api/scrapit', {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: new Headers({
+        // const response = await fetch('/api/scrapit', {
+        //     method: 'POST',
+        //     body: JSON.stringify(body),
+        //     headers: new Headers({
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Origin': '*',
+        //         Accept: 'application/json',
+        //     }),
+        // });
+        // const data = await response.json();
+        // console.log(data);
+
+        const { data } = await axios.post(`/api/scrapit`, body, {
+            headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 Accept: 'application/json',
-            }),
+            },
         });
-        const data = await response.json();
-        // console.log(data);
 
         if (data?.items || data?.steps) {
             setIngredients(data?.items);

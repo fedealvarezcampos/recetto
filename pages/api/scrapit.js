@@ -1,8 +1,10 @@
-const { chromium } = require('playwright');
+const chromium = require('chrome-aws-lambda');
+const playwright = require('playwright-core');
 const { compact } = require('jsonld');
 
 export default async function scraper(req, res) {
     // console.log('url: ', url);
+
     try {
         if (req.method !== 'POST') {
             res.status(405).send({ message: 'Only POST requests allowed' });
@@ -13,8 +15,15 @@ export default async function scraper(req, res) {
 
         console.log(url);
 
-        const browser = await chromium.launch();
+        const browser = await playwright.chromium.launch({
+            args: chromium.args,
+            executablePath: await chromium.executablePath,
+            headless: chromium.headless,
+        });
+
+        // const browser = await chromium.launch();
         const page = await browser.newPage();
+        // const page = await context.newPage();
 
         await page.goto(url);
 
@@ -64,7 +73,8 @@ export default async function scraper(req, res) {
             res.status(200).json({ message: 'No data found!' });
         }
     } catch (error) {
-        res.status(404).json({ message: 'Site can not be imported!' });
+        // res.status(404).json({ message: 'Site can not be imported!' });
+        res.status(404).json(error.message);
     }
 }
 

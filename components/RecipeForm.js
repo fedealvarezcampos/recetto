@@ -101,6 +101,7 @@ function RecipeForm({ setModal }) {
 
         const response = await fetch('/api/scrapit', {
             method: 'POST',
+            mode: 'no-cors',
             body: JSON.stringify(body),
             headers: new Headers({
                 'Content-Type': 'application/json',

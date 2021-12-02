@@ -3,8 +3,6 @@ const playwright = require('playwright-core');
 const { compact } = require('jsonld');
 
 export default async function scraper(req, res) {
-    // console.log('url: ', url);
-
     try {
         if (req.method !== 'POST') {
             res.status(405).send({ message: 'Only POST requests allowed' });
@@ -13,17 +11,13 @@ export default async function scraper(req, res) {
 
         const { url } = req?.body;
 
-        console.log(url);
-
         const browser = await playwright.chromium.launch({
             args: chromium.args,
             executablePath: await chromium.executablePath,
             headless: chromium.headless,
         });
 
-        // const browser = await chromium.launch();
         const page = await browser.newPage();
-        // const page = await context.newPage();
 
         await page.goto(url);
 
@@ -58,14 +52,8 @@ export default async function scraper(req, res) {
             instructions = instructions?.map(i => i.Text);
         }
 
-        // console.log(compacted);
-        // console.log(ingredients);
-        // console.log(instructions);
-
         await page.close();
         await browser.close();
-
-        // return ingredients;
 
         if (ingredients || instructions) {
             res.status(200).json({ items: ingredients, steps: instructions });
@@ -77,5 +65,3 @@ export default async function scraper(req, res) {
         res.status(404).json(error.message);
     }
 }
-
-// scraper('https://www.allrecipes.com/recipe/10275/classic-peanut-butter-cookies/');

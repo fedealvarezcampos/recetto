@@ -99,9 +99,11 @@ function RecipeForm({ setModal }) {
 
         const body = { url: importURL };
 
+        console.log(body);
+
         const response = await fetch('/api/scrapit', {
             method: 'POST',
-            mode: 'no-cors',
+            // mode: 'no-cors',
             body: JSON.stringify(body),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -110,7 +112,6 @@ function RecipeForm({ setModal }) {
             }),
         });
         const data = await response.json();
-        // console.log(data);
 
         if (data?.items || data?.steps) {
             setIngredients(data?.items);

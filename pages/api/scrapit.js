@@ -10,6 +10,7 @@ export default async function scraper(req, res) {
         }
 
         const { url } = req?.body;
+        console.log(url);
 
         const browser = await playwright.chromium.launch({
             args: chromium.args,
@@ -61,7 +62,7 @@ export default async function scraper(req, res) {
             res.status(200).json({ message: 'No data found!' });
         }
     } catch (error) {
-        // res.status(404).json({ message: 'Site can not be imported!' });
-        res.status(404).json(error.message);
+        console.log(error.message);
+        res.status(404).json({ message: 'Site can not be imported!' });
     }
 }

@@ -8,6 +8,8 @@ import { useRouter } from 'next/dist/client/router';
 import Modal from './Modal';
 
 function RecipeForm({ setModal }) {
+    const apiHost = process.env.NEXT_PUBLIC_APIHOST;
+
     const router = useRouter();
     const user = supabase?.auth.user();
 
@@ -99,9 +101,7 @@ function RecipeForm({ setModal }) {
 
         const body = { url: importURL };
 
-        console.log(body);
-
-        const response = await fetch('/api/scrapit', {
+        const response = await fetch(`${apiHost}api/scraper`, {
             method: 'POST',
             // mode: 'no-cors',
             body: JSON.stringify(body),

@@ -16,7 +16,7 @@ const securityHeaders = [
     },
     {
         key: 'Access-Control-Allow-Origin',
-        value: '*.chec.io',
+        value: '*',
     },
     {
         key: 'Referrer-Policy',
@@ -45,5 +45,14 @@ module.exports = {
     images: {
         domains: ['kfbmibfvknusdwjqdxeh.supabase.in'],
         formats: ['image/avif', 'image/webp'],
+    },
+
+    async headers() {
+        return [
+            {
+                source: '/(.*)',
+                headers: securityHeaders,
+            },
+        ];
     },
 };

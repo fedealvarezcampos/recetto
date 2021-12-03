@@ -55,8 +55,6 @@ const settings = {
 };
 
 function RecipeGallery({ items }) {
-    console.log(items);
-
     return (
         <>
             <div className={styles.galleryContainer}>
@@ -67,6 +65,7 @@ function RecipeGallery({ items }) {
                                 <Image
                                     src={supabaseHost + img}
                                     // placeholder="blur"
+                                    priority
                                     layout="responsive"
                                     width="100%"
                                     height="80%"
@@ -82,6 +81,7 @@ function RecipeGallery({ items }) {
                     <Image
                         src={supabaseHost + items[0]}
                         // placeholder="blur"
+                        priority
                         layout="responsive"
                         width="100%"
                         height="80%"

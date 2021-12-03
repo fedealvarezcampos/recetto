@@ -13,15 +13,15 @@ function Recipe() {
     const session = useSession();
     const userId = session?.user?.id;
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
     const [category, setCategory] = useState('');
     const [categories, setCategories] = useState();
 
     const getRecipes = async category => {
+        loading && setLoading(false);
         try {
             setLoading(true);
-
             if (category) {
                 let { data: recipes, error } = await supabase
                     .from('recipes')

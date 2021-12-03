@@ -103,7 +103,7 @@ function RecipeForm({ setModal }) {
 
         const response = await fetch(`${apiHost}api/scraper`, {
             method: 'POST',
-            // mode: 'no-cors',
+            mode: 'cors',
             body: JSON.stringify(body),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -118,6 +118,8 @@ function RecipeForm({ setModal }) {
             setIngInputCounter(data?.items?.length);
             setInstructions(data?.steps);
             setInstInputCounter(data?.steps?.length);
+            setTitle(data?.recipeName);
+            setServings(data?.yield);
         } else {
             toast.error(data?.message);
         }
@@ -150,8 +152,8 @@ function RecipeForm({ setModal }) {
                 name: title,
                 images: imgURL,
                 category: category || (category === '' && 'Uncategorized'),
-                servings: servings,
-                cooktime: cookTime,
+                servings: servings || (servings === '' && null),
+                cooktime: cookTime || (cookTime === '' && null),
                 ingredients: ingredients,
                 steps: instructions,
                 owner_id: user?.id,
@@ -166,7 +168,8 @@ function RecipeForm({ setModal }) {
             toast.dismiss();
             toast.success('Recipe added!');
         } catch (error) {
-            toast.error(error);
+            toast.dismiss();
+            toast.error('Something went wrong!');
         }
     };
 
@@ -256,8 +259,7 @@ function RecipeForm({ setModal }) {
                         <input
                             name="servings"
                             id="servings"
-                            type="number"
-                            min="1"
+                            type="text"
                             placeholder="Recipe servings"
                             value={servings}
                             onChange={e => setServings(e.target.value)}

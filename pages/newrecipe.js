@@ -28,6 +28,7 @@ export default function NewRecipe({ modal, setModal }) {
                             <li>themodernproper.com</li>
                             <li>deliciousmagazine.co.uk</li>
                             <li>delicious.com.au</li>
+                            <li>taste.com.au</li>
                         </ul>
                     </span>
                 </Modal>

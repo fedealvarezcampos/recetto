@@ -16,18 +16,17 @@ function Recipe() {
     const session = useSession();
     const userId = session?.user?.id;
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [recipe, setRecipe] = useState([]);
 
     useEffect(() => {
         const getRecipe = async () => {
+            // setLoading(true);
             try {
-                setLoading(true);
-
                 let { data: recipes, error } = await supabase
                     .from('recipes')
                     .select('*')
-                    .match({ id: recipeId, name: recipeName, owner_id: userId });
+                    .match({ id: recipeId, owner_id: userId });
 
                 setRecipe(recipes[0]);
 

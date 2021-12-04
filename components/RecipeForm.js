@@ -120,6 +120,8 @@ function RecipeForm({ setModal }) {
             setInstInputCounter(data?.steps?.length);
             setTitle(data?.recipeName);
             setServings(data?.yield);
+
+            toast.success('Recipe imported!');
         } else {
             toast.error(data?.message);
         }

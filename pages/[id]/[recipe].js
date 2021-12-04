@@ -2,6 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
 import { useSession } from '../../context/SessionContext';
 import { supabase } from '../../lib/supabaseClient';
+import toast from 'react-hot-toast';
 import Head from 'next/head';
 import RecipeGallery from '../../components/RecipeGallery';
 import styles from '../../styles/Recipe.module.scss';

@@ -22,8 +22,9 @@ function Layout({ children, modal, setModal }) {
                         color: 'var(--white)',
                         backgroundColor: 'var(--main-item)',
                         borderRadius: '12px',
-                        border: '5px solid var(--alt-item)',
-                        width: '10rem',
+                        padding: '8px 8px 8px 12px',
+                        border: '6px solid var(--alt-item)',
+                        width: 'fit-content',
                     },
                 }}
             />

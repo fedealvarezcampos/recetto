@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
 import styles from '../styles/Header.module.scss';
+import toast from 'react-hot-toast';
 
 function Header({ setModal }) {
+    const router = useRouter();
+    const recipeId = router?.query?.id;
+
     const session = useSession();
     const user = session?.user;
 
@@ -13,6 +17,22 @@ function Header({ setModal }) {
             const { error } = await supabase.auth.signOut();
 
             if (error) throw error;
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const deleteRecipe = async () => {
+        try {
+            toast.loading('Deleting recipe...');
+            const { data, error } = await supabase.from('recipes').delete().eq('id', recipeId);
+
+            if (error) throw error;
+
+            router.replace('/my-recipes');
+
+            toast.dismiss();
+            toast.success('Recipe deleted!');
         } catch (error) {
             toast.error(error.message);
         }
@@ -45,6 +65,11 @@ function Header({ setModal }) {
                                     <span className={styles.recipeButtonText}>my recipes</span>
                                 </button>
                             </Link>
+                            {recipeId && (
+                                <button onClick={() => deleteRecipe()}>
+                                    <span className={styles.recipeButtonText}>delete recipe</span>
+                                </button>
+                            )}
                         </span>
                     </>
                 )}

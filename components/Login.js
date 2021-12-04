@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 // import { useClosingKey } from '../helpers/useClosingKey';
 import Modal from './Modal';
 import styles from '../styles/Login.module.scss';
+import toast from 'react-hot-toast';
 
 function Login({ setModal }) {
     // const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ function Login({ setModal }) {
 
             setModal(false);
         } catch (error) {
-            console.log(error.error_description || error.message);
+            toast.error(error.error_description || error.message);
         }
     };
 
@@ -31,7 +32,7 @@ function Login({ setModal }) {
         e.preventDefault();
         try {
             if (password !== confirmedPassword) {
-                console.log("Passwords don't match!");
+                toast.error("Passwords don't match!");
                 return;
             }
 
@@ -42,7 +43,7 @@ function Login({ setModal }) {
 
             if (error) throw error;
         } catch (error) {
-            console.log(error);
+            toast.error(error.error_description || error.message);
         }
     };
 
@@ -95,7 +96,7 @@ function Login({ setModal }) {
                                 <span>Confirm password</span>
                                 <input
                                     name="confirmedpass"
-                                    type="confirmedpass"
+                                    type="password"
                                     placeholder="Confirm password"
                                     value={confirmedPassword}
                                     onChange={e => setConfirmedPassword(e.target.value)}

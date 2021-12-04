@@ -6,8 +6,6 @@ import Modal from '../components/Modal';
 export default function NewRecipe({ modal, setModal }) {
     const session = useSession();
 
-    console.log(modal);
-
     return (
         <>
             <Head>
@@ -23,12 +21,17 @@ export default function NewRecipe({ modal, setModal }) {
                         the site is on this list and does not work, please try again):
                         <ul>
                             <li>allrecipes.com</li>
+                            <li>foodnetwork.co.uk</li>
                             <li>tasty.co</li>
                             <li>bbcgoodfood.com</li>
+                            <li>epicurious.com</li>
                             <li>themodernproper.com</li>
+                            <li>yummly.com</li>
+                            <li>bettycrocker.com</li>
                             <li>deliciousmagazine.co.uk</li>
                             <li>delicious.com.au</li>
                             <li>taste.com.au</li>
+                            <li>...and more! (possibly)</li>
                         </ul>
                     </span>
                 </Modal>

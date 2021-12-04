@@ -51,7 +51,7 @@ function RecipeForm({ setModal }) {
             const files = e.target.files;
 
             if (files?.length >= 5) {
-                console.log('Five images max!');
+                toast.error('Five images max!');
                 return;
             }
 
@@ -61,12 +61,12 @@ function RecipeForm({ setModal }) {
                 const fileExt = file.name.split('.').pop();
 
                 if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
-                    console.log('File/s must be jpg | webp | png !');
+                    toast.error('File/s must be jpg | webp | png !');
                     return;
                 }
 
                 if (file?.size > 1100000) {
-                    console.log('All files must be 1MB or less!');
+                    toast.error('All files must be 1MB or less!');
                     return;
                 }
 
@@ -78,13 +78,13 @@ function RecipeForm({ setModal }) {
             }
 
             if (images?.length + files?.length > 5) {
-                console.log('Five images max!');
+                toast.error('Five images max!');
                 return;
             }
 
             setImages([...images, ...previewsArray]);
         } catch (error) {
-            console.log(error.message);
+            toast.error(error.message);
         }
     }
 

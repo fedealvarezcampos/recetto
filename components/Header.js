@@ -7,7 +7,6 @@ import styles from '../styles/Header.module.scss';
 function Header({ setModal }) {
     const session = useSession();
     const user = session?.user;
-    const [loading, setLoading] = useState(true);
 
     const handleLogOut = async () => {
         try {
@@ -15,7 +14,7 @@ function Header({ setModal }) {
 
             if (error) throw error;
         } catch (error) {
-            console.log(error);
+            toast.error(error.message);
         }
     };
 

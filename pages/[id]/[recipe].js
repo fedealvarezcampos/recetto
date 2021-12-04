@@ -8,9 +8,9 @@ import styles from '../../styles/Recipe.module.scss';
 
 function Recipe() {
     const router = useRouter();
+
     const recipeId = router?.query.id;
     const recipeQ = router?.query.recipe;
-    console.log(recipeQ);
     const recipeName = recipeQ?.replaceAll('-', ' ');
 
     const session = useSession();
@@ -32,7 +32,7 @@ function Recipe() {
 
                 setLoading(false);
             } catch (error) {
-                console.log(error);
+                toast.error(error.message);
             }
         };
 

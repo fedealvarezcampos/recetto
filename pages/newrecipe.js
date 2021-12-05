@@ -22,6 +22,10 @@ export default function NewRecipe({ modal, setModal }) {
                         <ul>
                             <li>allrecipes.com</li>
                             <li>foodnetwork.co.uk</li>
+                            <li>seriouseats.com</li>
+                            <li>food.com</li>
+                            <li>myrecipes.com</li>
+                            <li>bonappetit.com</li>
                             <li>tasty.co</li>
                             <li>bbcgoodfood.com</li>
                             <li>epicurious.com</li>

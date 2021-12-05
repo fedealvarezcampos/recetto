@@ -1,5 +1,12 @@
 @import 'variables.scss';
 
+@mixin container {
+    padding: 2.2rem;
+    border-radius: 8px;
+    border: 6px solid var(--main-item);
+    background-color: var(--new-york);
+}
+
 @mixin buttonGeneralStyles {
     display: grid;
     place-content: center;

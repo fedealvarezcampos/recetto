@@ -14,6 +14,7 @@ html,
 body {
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
     font-family: $cabin, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
     background-color: var(--bg-color);
     text-rendering: geometricPrecision;
@@ -42,6 +43,18 @@ button {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--white);
     opacity: 0.6; /* Firefox */
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--main-item);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--alt-item);
 }
 
 [type='file'] {

@@ -2,7 +2,10 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import styles from '../styles/Header.module.scss';
+import logo from '../public/logo.svg';
 import toast from 'react-hot-toast';
 
 function Header({ setModal }) {
@@ -41,7 +44,15 @@ function Header({ setModal }) {
     return (
         <header className={styles.header}>
             <Link href="/" passHref>
-                <div className={styles.logo}>Recetto</div>
+                <motion.div
+                    className={styles.logo}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 0.98, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 1.0, transition: { duration: 0.2 } }}
+                    style={{ backgroundImage: `url(./logo.svg)` }}
+                />
             </Link>
             <nav>
                 {!user && (

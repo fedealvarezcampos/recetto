@@ -1,6 +1,18 @@
 @import './mixins';
 
+.loginFormsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    button:nth-child(3) {
+        font-size: 1.3rem;
+    }
+}
+
 .inputsContainer {
+    margin-top: -0.6rem;
+
     label {
         display: flex;
         flex-direction: column;

@@ -13,6 +13,7 @@ function Login({ setModal }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
+    const [phone, setPhone] = useState('');
 
     const handleLogin = async e => {
         e.preventDefault();
@@ -47,11 +48,11 @@ function Login({ setModal }) {
         }
     };
 
-    // const handleProviderLogin = async (e, provider) => {
+    // const handlePhoneLogin = async e => {
     //     e.preventDefault();
     //     try {
-    //         const { error } = await supabase.auth.signIn({
-    //             provider: provider,
+    //         let { user, error } = await supabase.auth.signIn({
+    //             phone: phone,
     //         });
 
     //         if (error) throw error;
@@ -60,6 +61,11 @@ function Login({ setModal }) {
     //     } finally {
     //         setModal(false);
     //     }
+    // };
+
+    // const phoneValidation = e => {
+    //     const validated = e.replace(/[^0-9]/g, '');
+    //     setPhone(validated);
     // };
 
     // useClosingKey('Escape', undefined, setModal);
@@ -105,49 +111,56 @@ function Login({ setModal }) {
                             <button>sign up</button>
                         </form>
                     ) : (
-                        <form onSubmit={e => handleLogin(e)}>
-                            <span>Login with your email</span>
-                            <span onClick={() => setRegisterState(true)}>
-                                ...or register if you haven&apos;t
-                            </span>
-                            <label>
-                                <span>Email</span>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder="Your email"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                />
-                            </label>
-                            <label>
-                                <span>Password</span>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Your pass"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-                            </label>
-                            <button>sign up</button>
-                        </form>
+                        <div className={styles.loginFormsContainer}>
+                            <form onSubmit={e => handleLogin(e)}>
+                                <span>Login with your email</span>
+                                <span onClick={() => setRegisterState(true)}>
+                                    ...or register if you haven&apos;t
+                                </span>
+                                <label>
+                                    <span>Email</span>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="Your email"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                </label>
+                                <label>
+                                    <span>Password</span>
+                                    <input
+                                        name="password"
+                                        type="password"
+                                        placeholder="Your pass"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </label>
+                                <button aria-label="login button">sign up</button>
+                            </form>
+                            {/* <form onSubmit={e => handleLogin(e)}>
+                                <span>With Twitter</span>
+                                <button aria-label="phone login button">sign in</button>
+                            </form> */}
+                            {/* <form onSubmit={e => handleLogin(e)}>
+                                <span>With just your number</span>
+                                <label>
+                                    <span>Phone</span>
+                                    <input
+                                        name="phone"
+                                        type="tel"
+                                        placeholder="Your phone number"
+                                        value={phone}
+                                        onChange={e => phoneValidation(e.target.value)}
+                                    />
+                                </label>
+                                <button onClick={e => handlePhoneLogin(e)} aria-label="phone login button">
+                                    send SMS
+                                </button>
+                            </form> */}
+                        </div>
                     )}
-                    {/* <div>
-                            <span>With Twitter</span>
-                            <br />
-                            <motion.button
-                                onClick={e => handleProviderLogin(e, 'twitter')}
-                                whileHover={{ y: -3 }}
-                                whileTap={{ y: 0 }}
-                                transition={{ duration: 0.2 }}
-                                aria-label="google login button"
-                                disabled={loading}
-                                className={styles.googleButton}
-                            >
-                                Twitter
-                            </motion.button>
-                        </div> */}
                 </div>
             </Modal>
         </>

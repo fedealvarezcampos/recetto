@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/dist/client/router';
 import { supabase } from '../lib/supabaseClient';
+import { motion } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
-import { useRouter } from 'next/dist/client/router';
-import Modal from './Modal';
 
 function RecipeForm({ setModal }) {
     const apiHost = process.env.NEXT_PUBLIC_APIHOST;
@@ -98,6 +98,7 @@ function RecipeForm({ setModal }) {
         e.preventDefault();
 
         setImporting(true);
+        toast.loading('Checking link...');
 
         const body = { url: importURL };
 
@@ -121,8 +122,10 @@ function RecipeForm({ setModal }) {
             setTitle(data?.recipeName);
             setServings(data?.yield);
 
+            toast.dismiss();
             toast.success('Recipe imported!');
         } else {
+            toast.dismiss();
             toast.error(data?.message);
         }
 
@@ -201,7 +204,15 @@ function RecipeForm({ setModal }) {
                         <button aria-label="import recipe" className={styles.importLabel}>
                             <span>import</span>
                         </button>
-                        {importing && <span className={styles.importingMsg}>Importing...</span>}
+                        {importing && (
+                            <motion.span
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                className={styles.importingMsg}
+                            >
+                                Importing...
+                            </motion.span>
+                        )}
                     </span>
                 </form>
                 <form action="" onSubmit={e => handleSubmit(e)} className={styles.recipeForm}>

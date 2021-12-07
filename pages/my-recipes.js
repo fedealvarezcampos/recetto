@@ -61,7 +61,7 @@ function Recipe() {
 			</Head>
 
 			{!recipes?.length && !loading && <div className={styles.noRecipes}>You have no recipes yet!</div>}
-			{loading && 'Loading...'}
+			{loading && <p className="loading">Loading...</p>}
 			{!loading && recipes?.length > 0 && (
 				<div className={styles.recipesOuterContainer}>
 					<label htmlFor="category-select">Select a category: </label>

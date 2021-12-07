@@ -1,171 +1,171 @@
 @import './mixins';
 
 .formsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
 
-    @media (max-width: 600px) {
-        gap: 1rem;
-        padding-bottom: 1rem;
-    }
+	@media (max-width: 600px) {
+		gap: 1rem;
+		padding-bottom: 1rem;
+	}
 
-    h1 {
-        margin: 0;
-        margin-bottom: -0.4rem;
-        padding-left: 0.4rem;
-        color: var(--main-item);
-        font-family: $poppins;
+	h1 {
+		margin: 0;
+		margin-bottom: -0.4rem;
+		padding-left: 0.4rem;
+		color: var(--main-item);
+		font-family: $poppins;
 
-        @media (max-width: 600px) {
-            font-size: 1.6rem;
-        }
-    }
+		@media (max-width: 600px) {
+			font-size: 1.6rem;
+		}
+	}
 }
 
 .recipeForm {
-    @include container;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    width: clamp(25rem, 60vw, 40rem);
+	@include container;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	width: clamp(25rem, 60vw, 40rem);
 
-    @media (max-width: 600px) {
-        width: 90vw;
-    }
+	@media (max-width: 600px) {
+		width: 90vw;
+	}
 
-    button {
-        margin-top: 0.8rem;
-    }
+	button {
+		margin-top: 0.8rem;
+	}
 
-    label {
-        display: flex;
-        flex-direction: column;
-        gap: 0.1rem;
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--main-item);
-        width: fit-content;
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: var(--main-item);
+		width: fit-content;
 
-        span:first-child {
-            padding-left: 0.1rem;
-        }
+		span:first-child {
+			padding-left: 0.1rem;
+		}
 
-        &[type='file'] {
-            padding: 3rem;
-        }
-    }
+		&[type='file'] {
+			padding: 3rem;
+		}
+	}
 
-    input {
-        @include inputGeneralStyles();
-        width: clamp(12rem, 30vw, 15rem);
+	input {
+		@include inputGeneralStyles();
+		width: clamp(12rem, 30vw, 15rem);
 
-        @media (max-width: 600px) {
-            width: 55vw;
-        }
-    }
+		@media (max-width: 600px) {
+			width: 55vw;
+		}
+	}
 }
 
 .addButton {
-    height: 2rem;
-    width: 2rem;
-    margin-bottom: 0.2rem;
-    font-size: 1.2rem;
-    align-self: flex-end;
+	height: 2rem;
+	width: 2rem;
+	margin-bottom: 0.2rem;
+	font-size: 1.2rem;
+	align-self: flex-end;
 }
 
 .importLabel {
-    padding-left: 0.3rem;
-    font-size: 1.4rem;
+	padding-left: 0.3rem;
+	font-size: 1.4rem;
 }
 
 .imageInputs {
-    label {
-        @include buttonGeneralStyles();
-        font-size: 1rem;
-        width: 8rem;
-        height: 2.6rem;
+	label {
+		@include buttonGeneralStyles();
+		font-size: 1rem;
+		width: 8rem;
+		height: 2.6rem;
 
-        @media (max-width: 600px) {
-            text-align: center;
-            line-height: 1.1;
-            font-size: 0.75rem;
-        }
+		@media (max-width: 600px) {
+			text-align: center;
+			line-height: 1.1;
+			font-size: 0.75rem;
+		}
 
-        span {
-            margin: auto;
-            padding-right: 0.15rem;
-        }
-    }
+		span {
+			margin: auto;
+			padding-right: 0.15rem;
+		}
+	}
 }
 
 .ingredientsFormSubContainer {
-    display: flex;
-    gap: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
 
-    textarea {
-        width: clamp(15rem, 40vw, 28rem);
-        height: 8rem;
-        resize: none;
-        @include inputGeneralStyles();
+	textarea {
+		width: clamp(15rem, 40vw, 28rem);
+		height: 8rem;
+		resize: none;
+		@include inputGeneralStyles();
 
-        @media (max-width: 600px) {
-            width: 60vw;
-        }
-    }
+		@media (max-width: 600px) {
+			width: 60vw;
+		}
+	}
 }
 
 .inputArrayContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
 }
 
 .imageContainer {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
 
-    span {
-        position: relative !important;
-        width: 5rem !important;
-        height: 5rem !important;
+	span {
+		position: relative !important;
+		width: 5rem !important;
+		height: 5rem !important;
 
-        &:hover {
-            cursor: pointer;
-            filter: opacity(80%) grayscale(40%) hue-rotate(250deg);
-        }
-    }
+		&:hover {
+			cursor: pointer;
+			filter: opacity(80%) grayscale(40%) hue-rotate(250deg);
+		}
+	}
 }
 
 .importButtonContainer {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 0.6rem;
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	margin-top: 0.6rem;
 
-    button {
-        margin: 0;
-        @media (max-width: 600px) {
-            font-size: 0.9rem;
-        }
-    }
+	button {
+		margin: 0;
+		@media (max-width: 600px) {
+			font-size: 0.9rem;
+		}
+	}
 }
 
 .importingMsg {
-    font-family: $poppins;
-    font-style: italic;
-    font-size: 1.2rem;
-    font-weight: 800;
+	font-family: $poppins;
+	font-style: italic;
+	font-size: 1.2rem;
+	font-weight: 800;
 }
 
 .disclaimerText {
-    font-style: italic;
-    font-family: $noto-sans;
-    font-size: 1rem;
-    &:hover {
-        cursor: pointer;
-        color: var(--alt-item);
-    }
+	font-style: italic;
+	font-family: $noto-sans;
+	font-size: 1rem;
+	&:hover {
+		cursor: pointer;
+		color: var(--alt-item);
+	}
 }

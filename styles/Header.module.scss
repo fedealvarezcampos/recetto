@@ -1,56 +1,57 @@
 @import './variables';
 
 .header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.4rem;
-    place-items: center;
-    justify-content: space-between;
-    margin: auto;
-    padding: 1.2rem;
-    width: 96vw;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.4rem;
+	place-items: center;
+	justify-content: space-between;
+	margin: auto;
+	padding: 1.2rem;
+	width: 96vw;
 
-    @media (max-width: 900px) {
-        justify-content: center;
-    }
+	@media (max-width: 900px) {
+		justify-content: center;
+	}
 
-    @media (max-width: 600px) {
-        gap: 1.2rem;
-        padding: 0.6rem;
-        flex-direction: column;
-    }
+	@media (max-width: 600px) {
+		gap: 1.2rem;
+		padding: 0.6rem;
+		flex-direction: column;
+	}
 }
 
 .buttonsContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 1.4rem;
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 1.4rem;
 
-    @media (max-width: 600px) {
-        gap: 0.6rem;
-    }
+	@media (max-width: 600px) {
+		gap: 0.6rem;
+	}
 }
 
 .logo {
-    cursor: pointer;
-    width: 18rem;
-    height: 5rem;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
+	cursor: pointer;
+	width: 18rem;
+	height: 5rem;
+	margin-left: -0.6vw;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
 
-    @media (max-width: 600px) {
-        // width: 13rem;
-        height: 5rem;
-        background-size: contain;
-    }
+	@media (max-width: 600px) {
+		// width: 13rem;
+		height: 4.6rem;
+		background-size: contain;
+	}
 }
 
 .recipeButtonText {
-    line-height: 1;
-    font-size: 1.2rem;
+	line-height: 1;
+	font-size: 1.2rem;
 
-    @media (max-width: 600px) {
-        font-size: 0.8rem;
-    }
+	@media (max-width: 600px) {
+		font-size: 0.8rem;
+	}
 }

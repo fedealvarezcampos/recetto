@@ -3,8 +3,8 @@ import { supabase } from '../lib/supabaseClient';
 // import { motion } from 'framer-motion';
 // import { useClosingKey } from '../helpers/useClosingKey';
 import Modal from './Modal';
-import styles from '../styles/Login.module.scss';
 import toast from 'react-hot-toast';
+import styles from '../styles/Login.module.scss';
 
 function Login({ setModal }) {
     // const [loading, setLoading] = useState(false);
@@ -45,6 +45,19 @@ function Login({ setModal }) {
             if (error) throw error;
         } catch (error) {
             toast.error(error.error_description || error.message);
+        }
+    };
+
+    const signInWithTwitter = async e => {
+        e.preventDefault();
+        try {
+            const { user, session, error } = await supabase.auth.signIn({
+                provider: 'twitter',
+            });
+
+            if (error) throw error;
+        } catch (error) {
+            toast.error(error.message);
         }
     };
 
@@ -137,12 +150,12 @@ function Login({ setModal }) {
                                         onChange={e => setPassword(e.target.value)}
                                     />
                                 </label>
-                                <button aria-label="login button">sign up</button>
+                                <button aria-label="login button">sign in</button>
                             </form>
-                            {/* <form onSubmit={e => handleLogin(e)}>
+                            <form onSubmit={e => signInWithTwitter(e)}>
                                 <span>With Twitter</span>
                                 <button aria-label="phone login button">sign in</button>
-                            </form> */}
+                            </form>
                             {/* <form onSubmit={e => handleLogin(e)}>
                                 <span>With just your number</span>
                                 <label>

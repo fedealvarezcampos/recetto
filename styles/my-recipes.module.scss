@@ -1,78 +1,83 @@
 @import 'variables';
 
 .recipesOuterContainer {
-    height: 100%;
-    place-content: flex-start;
+	height: 100%;
+	place-content: flex-start;
 
-    label {
-        font-size: 1.2rem;
-        font-weight: 800;
-        font-family: $poppins;
-        padding-right: 1rem;
-    }
+	label {
+		font-size: 1.2rem;
+		font-weight: 800;
+		font-family: $poppins;
+		padding-right: 1rem;
+	}
 }
 
 .recipeListContainer {
-    display: flex;
-    flex-direction: column;
-    width: 30rem;
-    gap: 2rem;
-    list-style: none;
-    padding: 2.4rem 2rem 2.4rem 2rem;
-    border-radius: 8px;
-    border: 6px solid var(--main-item);
-    background-color: var(--new-york);
+	display: flex;
+	flex-direction: column;
+	width: 40rem;
+	gap: 2rem;
+	list-style: none;
+	padding: 2.4rem 2rem 2.4rem 2rem;
+	border-radius: 8px;
+	border: 6px solid var(--main-item);
+	background-color: var(--new-york);
 
-    @media (max-width: 600px) {
-        margin: auto;
-        padding: 1rem;
-        margin-top: 1rem;
-        width: 90vw;
-    }
+	@media (max-width: 600px) {
+		margin: auto;
+		padding: 1rem;
+		margin-top: 1rem;
+		width: 90vw;
+	}
 }
 
 .recipeListItem {
-    display: flex;
-    gap: 2rem;
-    padding: 1.5rem 2rem 1.5rem 2rem;
-    justify-content: space-between;
-    font-size: 1.2rem;
-    color: var(--white);
-    border-radius: 6px;
-    background-color: var(--main-item);
+	display: flex;
+	gap: 2rem;
+	height: 14rem;
+	padding: 1.5rem 2rem 1.5rem 2rem;
+	justify-content: space-between;
+	font-size: 1.4rem;
+	color: var(--white);
+	border-radius: 6px;
+	background-color: var(--main-item);
 
-    @media (max-width: 600px) {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1.2rem;
-        font-size: 1.1rem;
-    }
+	@media (max-width: 600px) {
+		flex-direction: column;
+		gap: 1rem;
+		padding: 1.2rem;
+		font-size: 1.1rem;
+	}
 
-    &:hover {
-        cursor: pointer;
-        background-color: var(--alt-item);
-        transition: background-color 200ms;
-    }
+	&:hover {
+		cursor: pointer;
+		background-color: var(--alt-item);
+		transition: background-color 200ms;
+	}
+
+	> span {
+		position: relative !important;
+		height: 100% !important;
+		width: 45% !important;
+
+		@media (max-width: 600px) {
+			width: unset !important;
+		}
+	}
 }
 
 .recipeData {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 
-    & :first-child {
-        font-weight: 800;
-    }
-}
-
-.imageContainer {
-    border-radius: 6px;
-    height: 5rem !important;
-    width: 5rem !important;
+	& :first-child {
+		font-weight: 800;
+	}
 }
 
 .noRecipes {
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: $poppins;
+	font-size: 2rem;
+	font-weight: 700;
+	font-family: $poppins;
 }

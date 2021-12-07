@@ -90,6 +90,7 @@ function Recipe() {
 										<Image
 											className={styles.imageContainer}
 											src={supabaseHost + item.images[0]}
+											layout="responsive"
 											width="100%"
 											height="100%"
 											objectFit="cover"

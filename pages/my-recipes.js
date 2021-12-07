@@ -60,8 +60,8 @@ function Recipe() {
 				<title>Recetto | My recipes</title>
 			</Head>
 
-			{!recipes?.length && <div className={styles.noRecipes}>You have no recipes yet!</div>}
-			{loading && recipes?.length > 0 && 'Loading...'}
+			{!recipes?.length && !loading && <div className={styles.noRecipes}>You have no recipes yet!</div>}
+			{loading && 'Loading...'}
 			{!loading && recipes?.length > 0 && (
 				<div className={styles.recipesOuterContainer}>
 					<label htmlFor="category-select">Select a category: </label>

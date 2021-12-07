@@ -31,7 +31,7 @@
     width: clamp(25rem, 60vw, 40rem);
 
     @media (max-width: 600px) {
-        width: clamp(18rem, 50vw, 20rem);
+        width: 90vw;
     }
 
     button {
@@ -57,8 +57,12 @@
     }
 
     input {
-        width: clamp(12rem, 30vw, 15rem);
         @include inputGeneralStyles();
+        width: clamp(12rem, 30vw, 15rem);
+
+        @media (max-width: 600px) {
+            width: 55vw;
+        }
     }
 }
 
@@ -104,6 +108,10 @@
         height: 8rem;
         resize: none;
         @include inputGeneralStyles();
+
+        @media (max-width: 600px) {
+            width: 60vw;
+        }
     }
 }
 

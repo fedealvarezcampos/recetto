@@ -2,11 +2,17 @@
 
 .header {
     display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
     place-items: center;
     justify-content: space-between;
     margin: auto;
     padding: 1.2rem;
     width: 96vw;
+
+    @media (max-width: 900px) {
+        justify-content: center;
+    }
 
     @media (max-width: 600px) {
         gap: 1.2rem;
@@ -29,7 +35,7 @@
     cursor: pointer;
     width: 18rem;
     height: 5rem;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
 

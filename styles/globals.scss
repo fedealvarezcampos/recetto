@@ -49,6 +49,10 @@ button {
 
 ::-webkit-scrollbar {
     width: 12px;
+
+    @media (max-width: 600px) {
+        width: 6px;
+    }
 }
 
 ::-webkit-scrollbar-track {

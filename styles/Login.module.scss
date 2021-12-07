@@ -3,10 +3,12 @@
 .loginFormsContainer {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.3rem;
 
-    button:nth-child(3) {
-        font-size: 1.3rem;
+    form:last-child {
+        button:last-child {
+            margin-top: 0.3rem;
+        }
     }
 }
 
@@ -39,7 +41,7 @@
         &:last-child {
             width: 8.2rem;
             padding-right: 0.5rem;
-            margin-top: 1.2rem;
+            margin-top: 1rem;
         }
     }
 

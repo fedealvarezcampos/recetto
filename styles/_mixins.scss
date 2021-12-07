@@ -5,6 +5,10 @@
     border-radius: 8px;
     border: 6px solid var(--main-item);
     background-color: var(--new-york);
+
+    @media (max-width: 600px) {
+        padding: 1.5rem;
+    }
 }
 
 @mixin buttonGeneralStyles {
@@ -25,6 +29,12 @@
         background-color: var(--alt-item);
         transition: background-color 200ms;
     }
+
+    @media (max-width: 600px) {
+        font-size: 1rem;
+        height: 2.6rem;
+        width: 4rem;
+    }
 }
 
 @mixin inputGeneralStyles {
@@ -36,6 +46,10 @@
     border: none;
     border-radius: 4px;
     margin-top: 0.2rem;
+
+    @media (max-width: 600px) {
+        width: clamp(12rem, 30vw, 15rem);
+    }
 
     &:focus {
         outline: 3px solid var(--alt-item);

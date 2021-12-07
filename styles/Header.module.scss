@@ -5,17 +5,24 @@
     place-items: center;
     justify-content: space-between;
     margin: auto;
-    // height: 8rem;
-    width: 96vw;
     padding: 1.2rem;
-    // background-color: var(--bg-color);
-    // z-index: 3;
+    width: 96vw;
+
+    @media (max-width: 600px) {
+        gap: 1.2rem;
+        padding: 0.6rem;
+        flex-direction: column;
+    }
 }
 
 .buttonsContainer {
     display: flex;
     flex-direction: row-reverse;
     gap: 1.4rem;
+
+    @media (max-width: 600px) {
+        gap: 0.6rem;
+    }
 }
 
 .logo {
@@ -25,9 +32,19 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
+    @media (max-width: 600px) {
+        // width: 13rem;
+        height: 5rem;
+        background-size: contain;
+    }
 }
 
 .recipeButtonText {
     line-height: 1;
     font-size: 1.2rem;
+
+    @media (max-width: 600px) {
+        font-size: 0.8rem;
+    }
 }

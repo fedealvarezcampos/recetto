@@ -105,7 +105,14 @@ function Recipe() {
 						<form action="/" onSubmit={e => searchRecipes(e)}>
 							<label htmlFor="search">
 								<span>Search:</span>
-								<input type="search" onChange={e => setSearch(e.target.value)} />
+								<input
+									type="search"
+									required
+									name="search"
+									id="search"
+									minLength={3}
+									onChange={e => setSearch(e.target.value)}
+								/>
 							</label>
 						</form>
 					</>

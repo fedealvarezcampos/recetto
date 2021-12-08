@@ -1,4 +1,3 @@
-import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
@@ -14,14 +13,39 @@ function Recipe() {
 	const userId = session?.user?.id;
 
 	const [loading, setLoading] = useState(true);
+	const [searching, setSearching] = useState(false);
+	const [search, setSearch] = useState('');
 	const [recipes, setRecipes] = useState([]);
 	const [category, setCategory] = useState('');
 	const [categories, setCategories] = useState();
+
+	const searchRecipes = async e => {
+		e.preventDefault();
+		try {
+			setSearching(true);
+
+			let { data: recipes, error } = await supabase
+				.from('recipes')
+				.select('*')
+				.match({ owner_id: userId })
+				.textSearch('name', `%${search}%`, {
+					type: 'websearch',
+				});
+
+			if (error) throw error;
+
+			setSearching(false);
+			setRecipes(recipes);
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
 
 	const getRecipes = async category => {
 		loading && setLoading(false);
 		try {
 			setLoading(true);
+
 			if (category) {
 				let { data: recipes, error } = await supabase
 					.from('recipes')
@@ -45,7 +69,7 @@ function Recipe() {
 
 			setLoading(false);
 		} catch (error) {
-			toast.error(error);
+			toast.error(error.message);
 		}
 	};
 
@@ -59,25 +83,38 @@ function Recipe() {
 			<Head>
 				<title>Recetto | My recipes</title>
 			</Head>
-
-			{!recipes?.length && !loading && <div className={styles.noRecipes}>You have no recipes yet!</div>}
 			{loading && <p className="loading">Loading...</p>}
-			{!loading && recipes?.length > 0 && (
-				<div className={styles.recipesOuterContainer}>
-					<label htmlFor="category-select">Select a category: </label>
-					<select
-						value={category}
-						onChange={e => setCategory(e.target.value)}
-						name="category"
-						id="category-select"
-					>
-						<option value="">-- All recipes --</option>
-						{categories?.map((item, i) => (
-							<option key={i} value={item}>
-								{item}
-							</option>
-						))}
-					</select>
+			<div className={styles.recipesOuterContainer}>
+				{!loading && (
+					<>
+						<label htmlFor="category-select">Select a category: </label>
+						<select
+							value={category}
+							onChange={e => setCategory(e.target.value)}
+							name="category"
+							id="category-select"
+						>
+							<option value="">-- All recipes --</option>
+							{categories?.map((item, i) => (
+								<option key={i} value={item}>
+									{item}
+								</option>
+							))}
+						</select>
+						<br />
+						<form action="/" onSubmit={e => searchRecipes(e)}>
+							<label htmlFor="search">
+								<span>Search:</span>
+								<input type="search" onChange={e => setSearch(e.target.value)} />
+							</label>
+						</form>
+					</>
+				)}
+				{!recipes?.length && !loading && !searching && (
+					<div className={styles.noRecipes}>No recipes!</div>
+				)}
+				{searching && <p className="loading">Searching...</p>}
+				{!loading && !searching && recipes?.length > 0 && (
 					<ul className={styles.recipeListContainer}>
 						{recipes?.map((item, i) => (
 							<Link key={i} href={`/${item.id}/${item.name.replaceAll(' ', '-')}`} passHref>
@@ -102,8 +139,8 @@ function Recipe() {
 							</Link>
 						))}
 					</ul>
-				</div>
-			)}
+				)}
+			</div>
 		</>
 	);
 }

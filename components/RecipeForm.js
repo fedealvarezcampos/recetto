@@ -14,6 +14,7 @@ function RecipeForm({ setModal }) {
 	const user = supabase?.auth.user();
 
 	const [importing, setImporting] = useState(false);
+	const [categoryOptions, setCategoryOptions] = useState(['']);
 
 	const [importURL, setImportURL] = useState('');
 	const [title, setTitle] = useState('');
@@ -42,6 +43,26 @@ function RecipeForm({ setModal }) {
 			const newArr = [...instructions];
 			newArr[i] = e.target.value;
 			setInstructions(newArr);
+		}
+	};
+
+	const searchCategories = async e => {
+		e.preventDefault();
+		try {
+			let { data: categories, error } = await supabase
+				.from('recipes')
+				.select('category')
+				.match({ owner_id: user?.id })
+				.textSearch('category', category, {
+					type: 'websearch',
+					config: 'english',
+				});
+
+			if (error) throw error;
+
+			setCategoryOptions(categories);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -256,16 +277,23 @@ function RecipeForm({ setModal }) {
 							))}
 						</div>
 					)}
-					<label htmlFor="category">
+					<label htmlFor="category-options">
 						<span>Category</span>
 						<input
 							name="category"
 							id="category"
 							type="text"
+							list="category-options"
 							placeholder="Recipe category"
 							value={category}
+							onInput={e => searchCategories(e)}
 							onChange={e => setCategory(e.target.value)}
 						/>
+						<datalist value={category} type="text" name="category-options" id="category-options">
+							{categoryOptions?.map((item, i) => (
+								<option key={i} value={item?.category} />
+							))}
+						</datalist>
 					</label>
 					<label htmlFor="servings">
 						<span>Servings</span>

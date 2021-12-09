@@ -2,6 +2,7 @@ import { useSession } from '../context/SessionContext';
 import Head from 'next/head';
 import RecipeForm from '../components/RecipeForm';
 import Modal from '../components/Modal';
+import styles from '../styles/newrecipe.module.scss';
 
 export default function NewRecipe({ modal, setModal }) {
 	const session = useSession();
@@ -13,9 +14,9 @@ export default function NewRecipe({ modal, setModal }) {
 			</Head>
 			{session && <RecipeForm setModal={setModal} />}
 			{!session && <div>Loading...</div>}
-			{modal && session && (
-				<Modal setModal={setModal}>
-					<span>
+			{session && (
+				<Modal modal={modal} setModal={setModal}>
+					<span className={styles.disclaimer}>
 						Because of how differently sites handle recipes, not all links are going to work. Most
 						popular recipe sites will work fine. Here are some that do with no problem (mostly; if
 						the site is on this list and does not work, please try again):

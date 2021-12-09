@@ -164,6 +164,11 @@
 	font-style: italic;
 	font-family: $noto-sans;
 	font-size: 1rem;
+
+	@media (max-width: 600px) {
+		font-size: 0.2rem;
+	}
+
 	&:hover {
 		cursor: pointer;
 		color: var(--alt-item);

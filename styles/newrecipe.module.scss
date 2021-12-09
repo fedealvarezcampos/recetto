@@ -1,0 +1,12 @@
+.disclaimer {
+	font-size: 1.2rem;
+
+	@media (max-width: 800px) {
+		font-size: 0.85rem;
+	}
+
+	ul {
+		padding-left: 15%;
+		list-style: circle;
+	}
+}

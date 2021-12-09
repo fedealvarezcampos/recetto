@@ -1,91 +1,116 @@
 @import './mixins';
 
 .loginFormsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.3rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.3rem;
 
-    form:last-child {
-        button:last-child {
-            margin-top: 0.3rem;
-        }
-    }
+	@media (max-width: 800px) {
+		gap: 0.5rem;
+	}
+
+	form:last-child {
+		button:last-child {
+			margin-top: 0.3rem;
+
+			@media (max-width: 800px) {
+				margin-top: 0.1rem;
+			}
+		}
+	}
 }
 
 .inputsContainer {
-    margin-top: -0.6rem;
+	margin-top: -0.8rem;
 
-    label {
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        gap: 0.1rem;
-    }
+	@media (max-width: 800px) {
+		margin-top: -0.1rem;
+	}
 
-    input {
-        @include inputGeneralStyles();
-        border: 5px solid var(--new-york);
-    }
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
 
-    p {
-        margin: 0;
-    }
+		@media (max-width: 800px) {
+			gap: 0.3rem;
+		}
 
-    button {
-        &:hover {
-            color: var(--main-item);
-            background-color: var(--new-york);
-            transition: all 250ms;
-        }
+		> span:first-child {
+			font-family: $poppins;
+			font-size: 1.4rem;
 
-        &:last-child {
-            width: 8.2rem;
-            padding-right: 0.5rem;
-            margin-top: 1rem;
-        }
-    }
+			@media (max-width: 800px) {
+				font-size: 1.2rem;
+			}
+		}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
+		> span:nth-child(2) {
+			cursor: pointer;
+			padding-bottom: 0.5rem;
+			font-size: 1rem;
+			font-style: italic;
+			font-family: $poppins;
+			text-decoration: underline 2px var(--white);
 
-        > span:first-child {
-            font-family: $poppins;
-            font-size: 1.4rem;
-        }
+			@media (max-width: 800px) {
+				padding-bottom: 0.3rem;
+			}
+		}
+	}
 
-        > span:nth-child(2) {
-            cursor: pointer;
-            text-decoration: underline 2px var(--white);
-            padding-bottom: 0.5rem;
-            font-style: italic;
-            font-family: $poppins;
-            font-size: 1rem;
-        }
-    }
+	label {
+		display: flex;
+		flex-direction: column;
+		width: fit-content;
+		gap: 0.1rem;
 
-    > span:first-child {
-        font-family: $poppins;
-        font-size: 2.6rem;
-    }
-}
+		@media (max-width: 800px) {
+			font-size: 1.2rem;
+		}
+	}
 
-@media (max-width: 800px) {
-    .inputsContainer {
-        input {
-            font-size: 1.2rem;
-            padding: 0.4rem;
-            width: 82%;
-        }
+	input {
+		@include inputGeneralStyles();
+		border: 5px solid var(--new-york);
 
-        > span:first-child {
-            font-size: 2rem;
-        }
+		@media (max-width: 800px) {
+			font-size: 1rem;
+			padding: 0.4rem;
+			width: 82%;
+		}
+	}
 
-        button:last-child {
-            margin-left: 0.1rem;
-            margin-top: 0.3rem;
-        }
-    }
+	> span:first-child {
+		font-family: $poppins;
+		font-size: 2.6rem;
+
+		@media (max-width: 800px) {
+			font-size: 2rem;
+		}
+	}
+
+	p {
+		margin: 0;
+	}
+
+	button {
+		&:hover {
+			color: var(--main-item);
+			background-color: var(--new-york);
+			transition: all 250ms;
+		}
+
+		&:last-child {
+			width: 8.2rem;
+			padding-right: 0.5rem;
+			margin-top: 1rem;
+
+			@media (max-width: 800px) {
+				font-size: 1.2rem;
+				margin-left: 0.1rem;
+				margin-top: 0.5rem;
+			}
+		}
+	}
 }

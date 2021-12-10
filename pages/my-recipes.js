@@ -73,10 +73,17 @@ function Recipe() {
 		}
 	};
 
+	const handleGetAllRecipes = () => {
+		getRecipes();
+		setCategory('');
+	};
+
 	useEffect(() => {
 		userId && getRecipes(category);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, category]);
+
+	console.log(search);
 
 	return (
 		<>
@@ -94,7 +101,7 @@ function Recipe() {
 							name="category"
 							id="category-select"
 						>
-							<option value="">-- All recipes --</option>
+							<option value="">-- category --</option>
 							{categories?.map((item, i) => (
 								<option key={i} value={item}>
 									{item}
@@ -115,10 +122,16 @@ function Recipe() {
 								/>
 							</label>
 						</form>
+						{((recipes && recipes?.length === 0) || category !== '') && (
+							<button className={styles.allRecipesButton} onClick={() => handleGetAllRecipes()}>
+								see all recipes
+							</button>
+						)}
 					</>
 				)}
+
 				{!recipes?.length && !loading && !searching && (
-					<div className={styles.noRecipes}>No recipes!</div>
+					<div className={styles.noRecipes}>No recipes here!</div>
 				)}
 				{searching && <p className="loading">Searching...</p>}
 				{!loading && !searching && recipes?.length > 0 && (

@@ -83,8 +83,6 @@ function Recipe() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, category]);
 
-	console.log(search);
-
 	return (
 		<>
 			<Head>

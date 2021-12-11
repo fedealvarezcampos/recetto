@@ -43,7 +43,7 @@ function Recipe() {
 	return (
 		<>
 			<Head>
-				<title>Recetto | {recipeName}</title>
+				<title>Recetto{recipeName && ' | ' + recipeName}</title>
 			</Head>
 			{loading ? (
 				<p className="loading">Loading...</p>

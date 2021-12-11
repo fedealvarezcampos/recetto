@@ -51,17 +51,25 @@ function Recipe() {
 				<div className={styles.mainContainer}>
 					<h1>{recipe?.name}</h1>
 					{recipe?.images?.length > 0 && <RecipeGallery items={recipe?.images} />}
-					<div>
-						<span className={styles.sideTitle}>{recipe?.cooktime && 'Cooking time: '}</span>
-						{recipe?.cooktime}
-					</div>
-					<div>
-						<span className={styles.sideTitle}>{recipe?.servings && 'Servings: '}</span>
-						{recipe?.servings}
-					</div>
-					<div>
-						<span className={styles.sideTitle}>{recipe?.category && 'Category: '}</span>
-						{recipe?.category}
+					<div className={styles.infoContainer}>
+						{recipe?.cooktime && (
+							<div>
+								<span className={styles.sideTitle}>Cooking time</span>
+								<span>{recipe?.cooktime}</span>
+							</div>
+						)}
+						{recipe?.servings && (
+							<div>
+								<span className={styles.sideTitle}>Servings</span>
+								<span>{recipe?.servings}</span>
+							</div>
+						)}
+						{recipe?.category && (
+							<div>
+								<span className={styles.sideTitle}>Category</span>
+								<span>{recipe?.category}</span>
+							</div>
+						)}
 					</div>
 					<article className={styles.recipeContainer}>
 						<span>

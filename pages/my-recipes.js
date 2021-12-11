@@ -17,10 +17,11 @@ function Recipe() {
 	const [search, setSearch] = useState('');
 	const [recipes, setRecipes] = useState([]);
 	const [category, setCategory] = useState('');
-	const [categories, setCategories] = useState();
+	const [categories, setCategories] = useState(['']);
 
 	const searchRecipes = async e => {
 		e.preventDefault();
+		setCategory('');
 		try {
 			setSearching(true);
 

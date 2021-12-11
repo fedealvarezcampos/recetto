@@ -58,6 +58,49 @@
 	font-weight: 600;
 }
 
+.infoContainer {
+	display: flex;
+	gap: 1rem;
+
+	@media (max-width: 600px) {
+		gap: 0.6rem;
+	}
+
+	div {
+		display: flex;
+		flex-direction: column;
+		padding-right: 1rem;
+		border-right: 3px solid var(--alt-item);
+
+		@media (max-width: 600px) {
+			padding-right: 0.7rem;
+			border-right: 2px solid var(--alt-item);
+		}
+
+		&:last-child {
+			border: unset;
+		}
+
+		span:first-child {
+			font-family: $poppins;
+			font-weight: 700;
+
+			@media (max-width: 600px) {
+				font-size: 0.9rem;
+			}
+		}
+
+		span:last-child {
+			font-family: $cabin;
+			font-size: 1rem;
+
+			@media (max-width: 600px) {
+				font-size: 0.9rem;
+			}
+		}
+	}
+}
+
 .instructionsList {
 	padding: 0;
 	list-style: inside decimal;

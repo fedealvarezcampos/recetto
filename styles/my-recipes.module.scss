@@ -51,7 +51,8 @@
 .recipeListItem {
 	display: flex;
 	gap: 2rem;
-	height: 14rem;
+	height: fit-content;
+	max-height: 14rem;
 	padding: 1.5rem 2rem 1.5rem 2rem;
 	justify-content: space-between;
 	font-size: clamp(1.4rem, 1.4vw, 1.8rem);
@@ -74,7 +75,7 @@
 
 	> span {
 		position: relative !important;
-		height: 100% !important;
+		height: auto !important;
 		width: clamp(5rem, 45%, 18rem) !important;
 
 		@media (max-width: 600px) {

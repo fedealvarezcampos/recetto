@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import toast from 'react-hot-toast';
 import Modal from './Modal';
-// import { motion } from 'framer-motion';
 // import { useClosingKey } from '../helpers/useClosingKey';
 import styles from '../styles/Login.module.scss';
 
@@ -13,7 +12,6 @@ function Login({ modal, setModal }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmedPassword, setConfirmedPassword] = useState('');
-	// const [phone, setPhone] = useState('');
 
 	const handleLogin = async e => {
 		e.preventDefault();
@@ -43,6 +41,8 @@ function Login({ modal, setModal }) {
 			});
 
 			if (error) throw error;
+
+			setModal(false);
 		} catch (error) {
 			toast.error(error.error_description || error.message);
 		}
@@ -60,26 +60,6 @@ function Login({ modal, setModal }) {
 			toast.error(error.message);
 		}
 	};
-
-	// const handlePhoneLogin = async e => {
-	//     e.preventDefault();
-	//     try {
-	//         let { user, error } = await supabase.auth.signIn({
-	//             phone: phone,
-	//         });
-
-	//         if (error) throw error;
-	//     } catch (error) {
-	//         notifyError(error.error_description || error.message);
-	//     } finally {
-	//         setModal(false);
-	//     }
-	// };
-
-	// const phoneValidation = e => {
-	//     const validated = e.replace(/[^0-9]/g, '');
-	//     setPhone(validated);
-	// };
 
 	// useClosingKey('Escape', undefined, setModal);
 
@@ -156,22 +136,6 @@ function Login({ modal, setModal }) {
 								<span>With Twitter</span>
 								<button aria-label="phone login button">sign in</button>
 							</form>
-							{/* <form onSubmit={e => handleLogin(e)}>
-                                <span>With just your number</span>
-                                <label>
-                                    <span>Phone</span>
-                                    <input
-                                        name="phone"
-                                        type="tel"
-                                        placeholder="Your phone number"
-                                        value={phone}
-                                        onChange={e => phoneValidation(e.target.value)}
-                                    />
-                                </label>
-                                <button onClick={e => handlePhoneLogin(e)} aria-label="phone login button">
-                                    send SMS
-                                </button>
-                            </form> */}
 						</div>
 					)}
 				</div>

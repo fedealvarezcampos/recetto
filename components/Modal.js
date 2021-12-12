@@ -1,19 +1,7 @@
-import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { isMobile as mobile } from 'react-device-detect';
 import styles from '../styles/Modal.module.scss';
 
 function Modal({ children, modal, setModal }) {
-	useEffect(() => {
-		modal &&
-			document.body.setAttribute('style', `overflow: hidden; margin-right: ${mobile ? '0' : '12px'};`);
-		!modal &&
-			document.body.removeAttribute(
-				'style',
-				`overflow: hidden; margin-right: ${mobile ? '0' : '12px'};`
-			);
-	}, [modal]);
-
 	return (
 		<AnimatePresence exitBeforeEnter>
 			{modal && (

@@ -8,7 +8,7 @@ import Image from 'next/image';
 import styles from '../styles/RecipeForm.module.scss';
 
 function RecipeForm({ setModal }) {
-	const apiHost = process.env.NEXT_PUBLIC_APIHOST;
+	const APIHOST = process.env.NEXT_PUBLIC_APIHOST;
 
 	const router = useRouter();
 	const user = supabase?.auth.user();
@@ -123,7 +123,7 @@ function RecipeForm({ setModal }) {
 
 		const body = { url: importURL };
 
-		const response = await fetch(`${apiHost}api/scraper`, {
+		const response = await fetch(`${APIHOST}api/scraper`, {
 			method: 'POST',
 			mode: 'cors',
 			body: JSON.stringify(body),

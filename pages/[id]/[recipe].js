@@ -22,7 +22,6 @@ function Recipe() {
 
 	useEffect(() => {
 		const getRecipe = async () => {
-			// setLoading(true);
 			try {
 				let { data: recipes, error } = await supabase
 					.from('recipes')

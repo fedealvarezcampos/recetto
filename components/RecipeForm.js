@@ -27,11 +27,20 @@ function RecipeForm({ setModal }) {
 	const [instInputCounter, setInstInputCounter] = useState(1);
 	const [images, setImages] = useState([]);
 
-	const handleNewInput = (e, field) => {
+	const handleInputCounter = (e, field, mode) => {
 		e.preventDefault();
-		field === 'ingredient'
-			? setIngInputCounter(ingInputCounter + 1)
-			: setInstInputCounter(instInputCounter + 1);
+
+		if (mode === 'add') {
+			field === 'ingredient'
+				? setIngInputCounter(ingInputCounter + 1)
+				: setInstInputCounter(instInputCounter + 1);
+		}
+
+		if (mode === 'remove') {
+			field === 'ingredient'
+				? setIngInputCounter(ingInputCounter - 1)
+				: setInstInputCounter(instInputCounter - 1);
+		}
 	};
 
 	const updateFieldContent = (i, e, field) => {
@@ -81,7 +90,11 @@ function RecipeForm({ setModal }) {
 			for (const file of files) {
 				const fileExt = file.name.split('.').pop();
 
-				if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
+				if (
+					file?.type !== 'image/png' &&
+					file?.type !== 'image/webp' &&
+					file?.type !== 'image/jpeg'
+				) {
 					toast.error('File/s must be jpg | webp | png !');
 					return;
 				}
@@ -338,9 +351,20 @@ function RecipeForm({ setModal }) {
 								})}
 							</span>
 						</label>
-						<button className={styles.addButton} onClick={e => handleNewInput(e, 'ingredient')}>
+						<button
+							className={styles.addButton}
+							onClick={e => handleInputCounter(e, 'ingredient', 'add')}
+						>
 							+
 						</button>
+						{ingInputCounter > 1 && (
+							<button
+								className={styles.addButton}
+								onClick={e => handleInputCounter(e, 'ingredient', 'remove')}
+							>
+								-
+							</button>
+						)}
 					</div>
 					<div className={styles.ingredientsFormSubContainer}>
 						<label htmlFor="instructions">
@@ -362,9 +386,20 @@ function RecipeForm({ setModal }) {
 								})}
 							</span>
 						</label>
-						<button className={styles.addButton} onClick={e => handleNewInput(e, 'instruction')}>
+						<button
+							className={styles.addButton}
+							onClick={e => handleInputCounter(e, 'instruction', 'add')}
+						>
 							+
 						</button>
+						{instInputCounter > 1 && (
+							<button
+								className={styles.addButton}
+								onClick={e => handleInputCounter(e, 'instruction', 'remove')}
+							>
+								-
+							</button>
+						)}
 					</div>
 					<button aria-label="save new recipe">
 						<span>save</span>

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
-import { supabaseHost } from '../lib/constants';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from '../styles/my-recipes.module.scss';
 import toast from 'react-hot-toast';
+import UserRecipeList from '../components/UserRecipeList';
+import styles from '../styles/my-recipes.module.scss';
 
 function Recipe() {
 	const session = useSession();
@@ -128,37 +126,11 @@ function Recipe() {
 						)}
 					</>
 				)}
-
 				{!recipes?.length && !loading && !searching && (
 					<div className={styles.noRecipes}>No recipes here!</div>
 				)}
 				{searching && <p className="loading">Searching...</p>}
-				{!loading && !searching && recipes?.length > 0 && (
-					<ul className={styles.recipeListContainer}>
-						{recipes?.map((item, i) => (
-							<Link key={i} href={`/${item.id}/${item.name.replaceAll(' ', '-')}`} passHref>
-								<li className={styles.recipeListItem}>
-									<div className={styles.recipeData}>
-										<span>{item.name}</span>
-										<span>{item.category || 'Uncategorized'}</span>
-									</div>
-									{item.images[0] && (
-										<Image
-											className={styles.imageContainer}
-											src={supabaseHost + item.images[0]}
-											layout="responsive"
-											width="100%"
-											height="100%"
-											objectFit="cover"
-											quality={80}
-											alt="recipe images"
-										/>
-									)}
-								</li>
-							</Link>
-						))}
-					</ul>
-				)}
+				{!loading && !searching && recipes?.length > 0 && <UserRecipeList recipes={recipes} />}
 			</div>
 		</>
 	);

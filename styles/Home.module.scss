@@ -5,7 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	place-items: center;
-	gap: clamp(1.8rem, 1.8vw, 2.6rem);
+	gap: clamp(1.6rem, 1.8vw, 2rem);
 	padding-bottom: 1rem;
 
 	@media (max-width: 600px) {
@@ -15,14 +15,14 @@
 	h1 {
 		text-align: center;
 		line-height: 1;
-		font-size: clamp(4rem, 6vw, 8rem);
+		font-size: clamp(3.4rem, 5vw, 6rem);
 		font-family: $poppins;
-		margin: 0.8rem;
+		margin: 0.4rem;
 		margin-top: 0;
 
 		@media (max-width: 600px) {
 			width: 90vw;
-			font-size: clamp(1.2rem, 10vw, 5rem);
+			font-size: clamp(1.2rem, 8vw, 5rem);
 			margin: 0.1rem;
 		}
 	}
@@ -30,13 +30,15 @@
 	> p {
 		width: 80vw;
 		margin: 0;
+		margin-bottom: 1rem;
 		font-family: $poppins;
 		font-weight: 700;
-		font-size: clamp(1.7rem, 1.6vw, 2.2rem);
+		font-size: clamp(1.7rem, 1.6vw, 1.9rem);
 		text-align: center;
 
 		@media (max-width: 600px) {
 			line-height: 1.2;
+			margin-bottom: 0.2rem;
 			width: 80vw;
 			font-size: 1.1rem;
 		}
@@ -46,13 +48,17 @@
 .firstInfoContainer {
 	@include container;
 	display: flex;
-	width: clamp(36rem, 70vw, 50rem);
+	width: clamp(36rem, 70vw, 45rem);
 	gap: 2.2rem;
 	place-items: center;
+	border-radius: 20px;
+	border-width: 10px;
 	border-color: var(--alt-item);
 	background-color: var(--main-item);
 
 	@media (max-width: 600px) {
+		border-radius: 10px;
+		border-width: 6px;
 		flex-direction: column;
 		gap: 1.6rem;
 		width: 90vw;
@@ -72,8 +78,6 @@
 	}
 
 	span {
-		// flex-basis: 500px;
-		// height: 800px !important;
 		width: 1000px !important;
 		border: 6px solid var(--alt-item) !important;
 	}

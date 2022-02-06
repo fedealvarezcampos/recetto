@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import { supabaseHost } from '../lib/constants';
 import styles from '../styles/my-recipes.module.scss';
 

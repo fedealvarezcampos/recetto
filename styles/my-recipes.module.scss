@@ -86,6 +86,8 @@
 		position: relative !important;
 		height: auto !important;
 		width: clamp(5rem, 45%, 18rem) !important;
+		border: 6px solid var(--new-york) !important;
+		border-radius: 12px;
 
 		@media (max-width: 600px) {
 			width: unset !important;

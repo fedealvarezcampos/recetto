@@ -33,7 +33,7 @@ function Layout({ children, modal, setModal }) {
 				{!session && <Login modal={modal} setModal={setModal} />}
 				<main className={styles.main}>{children}</main>
 				<footer className={styles.footer}>
-					<span>Recetto © 2021</span>
+					<span>Recetto © {new Date().getFullYear()}</span>
 				</footer>
 			</div>
 		</>
